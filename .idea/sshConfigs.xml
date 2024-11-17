@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig host="ruvip43.hostiman.ru" id="8559e73a-27a5-4710-842a-1e993225bb21" keyPath="$USER_HOME$/.ssh/hostiman2" port="8228" nameFormat="DESCRIPTIVE" username="keepcalm" useOpenSSHConfig="false" />
-    </configs>
-  </component>
-</project>
