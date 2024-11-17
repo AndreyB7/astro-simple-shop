@@ -1,7 +1,8 @@
 ---
 import Action from "@/components/Action.astro";
-import Icon from "@/components/Icon.astro";
-import type { FooterData, Icon as IconType } from "@/config/landing.interface";
+import type { FooterData } from "@/config/landing.interface";
+import Logo from "../components/Logo.astro";
+import { marked } from 'marked';
 
 interface Props {
   data: FooterData;
@@ -11,36 +12,46 @@ const { data } = Astro.props;
 ---
 
 <footer
-  class="flex flex-col justify-center text-center gap-y-8 pt-8 bg-black text-white w-full"
+        id="contacts-section"
+        class="w-11/12 scroll-m-32 flex flex-col justify-center text-center gap-y-8 pt-8 mt-24 bg-black"
 >
-  <section>
-    <Action as="a" type="text" class="text-xl md:text-2xl" href="/">
-      {data.logo}
-    </Action>
-  </section>
-  <section>
-    <p class="md:text-lg">
-      {data.description}
-    </p>
-  </section>
-  <section
-    class="flex flex-row flex-wrap justify-center gap-x-3 px-4 md:px-0 md:text-xl"
-  >
-    {
-      data.links.map((link) => (
-        <Action as="a" type="text" href={link.href}>
-          {link.label}
+    <section class="flex justify-center">
+        <Action as="a" href="/" title={ data.logo }>
+            <Logo/>
         </Action>
-      ))
-    }
-  </section>
-  <section class="mb-5 flex flex-row flex-wrap justify-center gap-x-3">
-    {
-      data.socials.map((social) => (
-        <Action as="a" type="icon" href={social.href} title={social.icon}>
-          <Icon icon={social.icon as IconType} />
-        </Action>
-      ))
-    }
-  </section>
+    </section>
+    <section>
+        <p class="md:text-2xl md:w-1/2 m-auto mb-10">{ data.description }</p>
+        <div class="border border-gray-700 rounded-xl md:text-lg p-4 pt-8 mb-10 underline-links md:w-1/2 m-auto gray" set:html={ marked.parse(data.contacts) }></div>
+        <p class="md:text-lg">{ data.info }</p>
+    </section>
+    <section
+            class="flex flex-row flex-wrap justify-center gap-x-3 px-4 md:px-0 md:text-xl"
+    >
+      {
+        data.links.map((link) => (
+                <Action as="a" type="text" href={ link.href } class="text-sm hover:opacity-70">
+                  { link.label }
+                </Action>
+        ))
+      }
+    </section>
+    <!--<section class="mb-5 flex flex-row flex-wrap justify-center gap-x-3">-->
+    <!--  {-->
+    <!--    data.socials.map((social) => (-->
+    <!--            <Action as="a" type="icon" href={ social.href } title={ social.icon }>-->
+    <!--                <Icon icon={ social.icon as IconType }/>-->
+    <!--            </Action>-->
+    <!--    ))-->
+    <!--  }-->
+    <!--</section>-->
+    <section class="mb-24">
+        <div class="divider"></div>
+        <p class="md:text-lg">&copy; { data.companyName }</p>
+    </section>
 </footer>
+<style is:inline>
+    .gray p {
+        opacity: .7;
+    }
+</style>

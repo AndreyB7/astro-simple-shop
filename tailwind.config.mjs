@@ -7,9 +7,20 @@ export default {
         white: "#FFFFFF",
         black: "#161925",
         primary: "#0088E6",
-        secondary: "#0C8346",
+        secondary: "rgba(0,136,230,0.7)",
       },
     },
+    typography: (theme) => ( {
+      DEFAULT: {
+        css: {
+          'p': {
+            fontSize: theme('fontSize.lg'),
+            lineHeight: theme('lineHeight.relaxed'),
+            marginBottom: theme('spacing.4'),
+          },
+        },
+      },
+    } ),
+    plugins: [ require("tailwind-scrollbar") ],
   },
-  plugins: [ require("tailwind-scrollbar") ],
 };

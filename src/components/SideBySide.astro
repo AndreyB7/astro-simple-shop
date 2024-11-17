@@ -1,8 +1,7 @@
 ---
-import Icon from "@/components/Icon.astro";
-import IconWrapper from "@/components/IconWrapper.astro";
 import { ASSET_PREFIX } from "@/config/constants";
 import type { Adventaje } from "@/config/landing.interface";
+import { marked } from 'marked';
 
 interface Props {
   data: Adventaje;
@@ -13,25 +12,15 @@ const { data, reversed } = Astro.props;
 ---
 
 <article
-  class=`flex justify-between gap-x-32 flex-col mb-20 md:mb-40 ${reversed ? "md:flex-row-reverse" : "md:flex-row"}`
+        class=`flex justify-between gap-x-32 flex-col mb-20 md:mb-40 ${ reversed ? "md:flex-row-reverse" : "md:flex-row" }`
+        data-aos="fade-up"
 >
-  <div class="md:w-3/4">
-    <img src={ASSET_PREFIX + data.img} alt={data.imageAlt} class="w-fit" />
-  </div>
-  <div class="flex flex-col md:w-5/6 gap-y-8">
-    <h3 class="text-xl md:text-4xl">{data.title}</h3>
-    <p class="md:text-xl">{data.description}</p>
-    <ul class="flex flex-col gap-y-8">
-      {
-        data.checks.map((check) => (
-          <li class="flex flex-row items-center gap-x-4 md:text-2xl">
-            <IconWrapper>
-              <Icon icon="CheckIcon" />
-            </IconWrapper>
-            {check}
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+    <div class="md:w-3/4 relative h-full rounded-2xl from-primary bg-gradient-to-b to-secondary after:absolute after:bg-base-100/30 after:inset-[1px] after:rounded-[calc(1rem-1px)] mb-8">
+        <img src={ ASSET_PREFIX + data.img } alt={ data.imageAlt }
+             class="w-full relative rounded-2xl border border-transparent object-cover p-0.5 z-10"/>
+    </div>
+    <div class="flex flex-col md:w-5/6 gap-y-8">
+      { data.title && (<h3 class="text-xl md:text-4xl">{ data.title }</h3>) }
+        <div set:html={ marked.parse(data.description) }></div>
+    </div>
 </article>

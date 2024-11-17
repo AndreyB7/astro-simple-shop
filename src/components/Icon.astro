@@ -15,6 +15,11 @@ import SolidIcon from "@/icons/techs/SolidIcon.astro";
 import SvelteIcon from "@/icons/techs/SvelteIcon.astro";
 import VercelIcon from "@/icons/techs/VercelIcon.astro";
 import VueIcon from "@/icons/techs/VueIcon.astro";
+import FilmIcon from "@/icons/commons/FilmIcon.astro";
+import TonerIcon from "@/icons/commons/TonerIcon.astro";
+import ToolsIcon from "@/icons/commons/ToolsIcon.astro";
+import LiquidIcon from "@/icons/commons/LiquidIcon.astro";
+
 
 interface Props {
   icon: Icon;
@@ -39,6 +44,11 @@ const icons = [
   NetlifyIcon,
   SolidIcon,
   VercelIcon,
+
+  FilmIcon,
+  TonerIcon,
+  ToolsIcon,
+  LiquidIcon,
 ];
 
 let figures: Record<string, (_props: Record<string, unknown>) => unknown> = {};

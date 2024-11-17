@@ -3,9 +3,9 @@ interface Props {
   class?: string;
 }
 
-const baseClass = "text-2xl text-center md:text-5xl font-semibold";
+const baseClass = "text-2xl text-center md:text-5xl font-semibold uppercase leading-tight md:leading-tight";
 
 const { class: className = baseClass } = Astro.props;
 ---
 
-<h2 class={className}><slot /></h2>
+<h2 class={className} data-aos="fade-up"><slot /></h2>

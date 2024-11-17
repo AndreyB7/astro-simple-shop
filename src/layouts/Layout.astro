@@ -1,5 +1,4 @@
 ---
-import Background from "@/components/Background.astro";
 import type { Meta } from "@/config/landing.interface";
 import "@fontsource-variable/rubik";
 
@@ -10,39 +9,54 @@ interface Props {
 const { meta } = Astro.props;
 
 const ldJson = JSON.stringify(meta.ldJson);
+
+import "aos/dist/aos.css";
 ---
 
 <!doctype html>
 <html
-  class="scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent scroll-smooth"
-  lang={meta.lang ?? "en"}
+        class="scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent scroll-smooth"
+        lang={ meta.lang ?? "en" }
 >
-  <head>
-    <meta charset={meta.charset ?? "UTF-8"} />
-    <title>{meta.title}</title>
-    <meta name="description" content={meta.description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={import.meta.env.SITE} />
-    <script type="application/ld+json" set:html={ldJson} />
-  </head>
-  <body class="bg-black text-white text-opacity-80">
-    <Background />
-    <slot />
-  </body>
+<head>
+    <meta charset={ meta.charset ?? "UTF-8" }/>
+    <title>{ meta.title }</title>
+    <meta name="description" content={ meta.description }/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="canonical" href={ import.meta.env.SITE }/>
+    <script type="application/ld+json" set:html={ ldJson }/>
+</head>
+<body class="bg-black text-white text-opacity-80">
+<slot/>
+<script>
+  import AOS from "aos";
+
+  AOS.init({
+    duration: 500,
+  });
+</script>
+</body>
 </html>
 
 <style is:global>
-  body {
-    font-family:
-      "Rubik Variable",
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
-  }
+    body {
+        font-family: "Rubik Variable", sans-serif;
+    }
+
+    p {
+        @apply md:text-xl mb-4;
+    }
+
+    a {
+        @apply hover:opacity-80;
+    }
+
+    .divider {
+        @apply w-1/4 m-auto border-b-2 border-gray-700 mb-4;
+    }
+
+    .underline-links a {
+        @apply underline hover:text-primary transition-colors
+    }
 </style>

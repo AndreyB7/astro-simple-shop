@@ -1,0 +1,27 @@
+---
+import Footer from "../sections/Footer.astro";
+import Header from "../sections/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import { getLandingData } from "../services/data.service";
+import HeroSingle from "../sections/HeroSingle.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+const data = await getLandingData();
+---
+
+<Layout meta={ data.meta }>
+    <Header data={ data.headerData }/>
+    <main class="flex flex-col justify-center items-center">
+        <div class="w-11/12 md:w-3/4">
+            <HeroSingle
+                    title="Каталог AliasevPro"
+                    subTitle="Выберите интересующие позиции и параметры, нажмите конопку отправить заявку. Мы свяжемся с вами для уточнения деталей и пришлем ссылку для оплаты заказа."
+            />
+        </div>
+        <section>
+            <SectionTitle>
+                <h2>Каталог в разработке</h2>
+            </SectionTitle>
+        </section>
+        <Footer data={ data.footerData }/>
+    </main>
+</Layout>

@@ -3,8 +3,8 @@ import Icon from "@/components/Icon.astro";
 import IconWrapper from "@/components/IconWrapper.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
 import type {
-  Icon as IconType,
-  ServicesData,
+	Icon as IconType,
+	ServicesData,
 } from "@/config/landing.interface";
 
 interface Props {
@@ -18,10 +18,10 @@ const { data } = Astro.props;
   <SectionTitle>
     {data.title}
   </SectionTitle>
-  <div class="grid md:grid-cols-2 gap-y-10 justify-items-center">
+  <div class="grid md:grid-cols-2 gap-y-10 justify-items-center text-center md:text-left">
     {
       data.services.map((service) => (
-        <article class="flex gap-x-6 md:gap-x-12 md:w-[550px]">
+        <article class="flex gap-x-4 md:gap-x-9 md:w-[550px] flex-col md:flex-row" data-aos="fade-up">
           <div>
             <IconWrapper>
               <Icon icon={service.icon as IconType} />
@@ -31,7 +31,7 @@ const { data } = Astro.props;
             <h3 class="text-xl font-medium md:text-4xl mb-3">
               {service.title}
             </h3>
-            <p class="text-pretty opacity-90 md:text-lg">
+            <p class="opacity-90 text-base">
               {service.description}
             </p>
           </section>

@@ -1,0 +1,18 @@
+---
+import SectionTitle from "@/components/SectionTitle.astro";
+import type { VideoData } from "../config/landing.interface";
+import YouTubeVideo from "../components/YouTubeVideo.astro";
+
+interface Props {
+  data: VideoData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="flex flex-col mb-60 gap-y-14">
+    <SectionTitle>
+      { data.title }
+    </SectionTitle>
+    <YouTubeVideo title={ data.title } videoId={ data.videoId }/>
+</section>

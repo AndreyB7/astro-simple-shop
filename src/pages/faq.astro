@@ -1,0 +1,23 @@
+---
+import { getLandingData } from "../services/data.service";
+import Footer from "../sections/Footer.astro";
+import Header from "../sections/Header.astro";
+import Layout from "../layouts/Layout.astro";
+import FAQ from "../sections/FAQ.astro";
+import HeroSingle from "../sections/HeroSingle.astro";
+
+const data = await getLandingData();
+---
+<Layout meta={ data.meta }>
+    <Header data={ data.headerData }/>
+    <main class="flex flex-col justify-center items-center">
+        <div class="w-11/12 md:w-3/4">
+            <HeroSingle
+              title="Часто задаваемые вопросы"
+              subTitle="Ответы на вопросы наших покупателей"
+            />
+            <FAQ />
+        </div>
+        <Footer data={ data.footerData }/>
+    </main>
+</Layout>

@@ -8,6 +8,17 @@ import robotsTxt from "astro-robots-txt";
 export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:4321"
-    : "https://luna-landing-rust.vercel.app/",
-  integrations: [tailwind(), sitemap(), robotsTxt()],
+    : "https://aliasevpro.ru/",
+  integrations: [tailwind(), sitemap(),
+    robotsTxt({
+        policy: [
+          {
+            userAgent: '*',
+            // allow: '/',
+            disallow: '/',
+            crawlDelay: 10,
+          }
+        ],
+      })
+  ],
 });

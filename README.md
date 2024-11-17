@@ -1,8 +1,5 @@
 ![image](https://github.com/JimmyCamus/luna-landing/assets/86853554/7dc4c571-bb33-4e55-ae94-446b056539a0)
 
-
-
-
 # Luna Landing
 
 Luna Landing is an innovative and highly customizable landing page that allows you to create and modify your website easily and quickly through a JSON file. Harnessing the power of Astro, a modern and efficient web development tool, Luna Landing provides you with an unparalleled development experience, enabling you to focus on your site's design and content without worrying about the complexity of code.

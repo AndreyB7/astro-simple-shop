@@ -1,0 +1,79 @@
+---
+import { marked } from 'marked';
+import Action from "../components/Action.astro";
+import { urls } from "../config/constants";
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+// FAQ data
+const faqs: FAQItem[] = [
+  {
+    question: "В чем разница между цветным полиуретаном и гибиридом?",
+    answer: "- Цена – гибрид дешевле полиуретана примерно 25 %. \n" +
+      "- Намотка в ролике – гибрид имеет 18 метровую намотку в отличие от полиуретана в котором 15мп. \n" +
+      "- Качество окраса – у гибрида богаче и интереснее палитра цветов потому что его можно красить многослойными сложными окрасками. \n\n" +
+      "- Простота нанесения – гибридные пленки можно клеить как на мокрую так и на сухую! \n\n" +
+      "- Толщина пленки – гибридные полиуретаны имеют толщину от 180 – 230 микрон , полиуретаны всего 190 микрон максимум. \n\n"
+  },
+  {
+    question: "Почему удобно работать именно с вами?",
+    answer: "Мы регулярно проводим офлайн курсы на базе нашей студии в г.Новосибирск. Если вы уже имеете автосервис и решили расширить свои услуги, то мы можем обучить ваш персонал, после обучения окажем бессрочную онлайн поддержку! \n\n" +
+      "В нашем магазине широкий выбор качественных пленок для стайлинга и защиты от сколов. Мы обеспечим ваш автосервис всем необходимым! Карбон, матовая, глянцевая, хамелеон, сатин, структурная, фотохромная пленка, жидкости для подготовки и установки пленки, инструмент."
+  },
+  {
+    question: "Какие условия доставки и оплаты?",
+    answer: "Доставка осуществляется транспортной компанией Энергия. Стоимость доставки рассчитывается после оформления заказа и оплачивается получателем. За повреждения товара по вине транспортной компании ответственности не несем." +
+      "\n\n  Мы отправлем заказ после 100% оплаты."
+  },
+  {
+    question: "Можно ли купить пленку в отрез?",
+    answer: "Оплата через сайт производится только за целый ролик. В отрез продаются все пленки кроме цветных (PET). Продажа в отрез производится через менеджера."
+  }
+];
+---
+
+<div class="max-w-2xl mx-auto p-4">
+  { faqs.map((faq, index) => (
+          <div class="faq-item border-b border-gray-700 py-4" data-key={ index }>
+              <button
+                      class="faq-question flex justify-between w-full text-left text-2xl focus:outline-none"
+              >
+                { faq.question }
+                  <span class={ "plus-icon transition-transform rotate-0" }>&#8250;</span>
+              </button>
+              <div class="faq-answer overflow-hidden transition-all text-gray-600 max-h-0">
+                  <div class="mt-4" set:html={ marked.parse(faq.answer) }></div>
+              </div>
+          </div>
+  )) }
+</div>
+<div class="flex justify-evenly mt-4">
+    <Action as="a" type="button" href={urls.catalog}>
+        В Каталог
+    </Action>
+</div>
+<style>
+    .active .faq-answer {
+        @apply max-h-96
+    }
+
+    .active .plus-icon {
+        @apply rotate-90
+    }
+</style>
+<style is:inline>
+    .faq-answer ul {
+        list-style: decimal;
+        padding-left: 1em;
+    }
+</style>
+<script>
+  const faqItems = document.querySelectorAll(".faq-item");
+  faqItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('active');
+    })
+  })
+</script>

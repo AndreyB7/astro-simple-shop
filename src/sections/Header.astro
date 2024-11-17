@@ -4,52 +4,52 @@ import type { HeaderData } from "@/config/landing.interface";
 import Logo from "../components/Logo.astro";
 
 interface Props {
-  data: HeaderData;
+	data: HeaderData;
 }
 
 const { data } = Astro.props;
 ---
 
 <header
-  id="navbar"
-  class="w-full transition duration-300 justify-center fixed h-20 z-50 hidden md:flex"
+	id="navbar"
+	class="w-full transition duration-300 justify-center relative md:fixed h-20 z-50 flex"
 >
-  <nav aria-label="Main Navigation" class="flex flex-row items-center w-3/4">
-    <div class="text-nowrap">
-      <Action as="a" class="text-xl" href="#" title={data.logo}>
-        <Logo/>
-      </Action>
-    </div>
-    <ul class="flex flex-row w-full justify-center gap-x-14">
-      {
-        data.links.map((item) => (
-          <li class="text-lg transition-transform hover:scale-105 hover:opacity-100">
-            <Action as="a" href={item.href}>
-              {item.label}
-            </Action>
-          </li>
-        ))
-      }
-    </ul>
-    <span></span>
-  </nav>
+	<nav aria-label="Main Navigation" class="flex flex-col md:flex-row items-center w-3/4">
+		<div class="text-nowrap">
+			<Action as="a" href="/" title={data.logo}>
+				<Logo />
+			</Action>
+		</div>
+		<ul class="flex flex-wrap md:flex-row w-full justify-center gap-x-5 gap-y-2 md:gap-x-14">
+			{
+				data.links.map((item) => (
+					<li class="text-lg transition-transform hover:scale-105 hover:opacity-100">
+						<Action as="a" href={item.href}>
+							{item.label}
+						</Action>
+					</li>
+				))
+			}
+		</ul>
+		<span></span>
+	</nav>
 </header>
 
 <script>
-  window.addEventListener("scroll", function () {
-    const navbar = document.getElementById("navbar");
-    if (!navbar) return;
+	window.addEventListener("scroll", function () {
+		const navbar = document.getElementById("navbar");
+		if (!navbar) return;
 
-    if (window.scrollY >= 20) {
-      navbar.classList.remove("border-b-transparent");
-      navbar.classList.add("border-b");
-      navbar.classList.add("border-b-slate-900");
-      navbar.classList.add("backdrop-blur-md");
-    } else {
-      navbar.classList.remove("border-b");
-      navbar.classList.remove("border-b-slate-300");
-      navbar.classList.remove("backdrop-blur-md");
-      navbar.classList.add("border-b-transparent");
-    }
-  });
+		if (window.scrollY >= 20) {
+			navbar.classList.remove("border-b-transparent");
+			navbar.classList.add("border-b");
+			navbar.classList.add("border-b-slate-900");
+			navbar.classList.add("backdrop-blur-md");
+		} else {
+			navbar.classList.remove("border-b");
+			navbar.classList.remove("border-b-slate-300");
+			navbar.classList.remove("backdrop-blur-md");
+			navbar.classList.add("border-b-transparent");
+		}
+	});
 </script>

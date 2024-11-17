@@ -7,6 +7,7 @@ export interface LandingPageData {
   brandsData: BrandsData;
   pricingData: PricingData;
   footerData: FooterData;
+  video: VideoData;
 }
 
 export interface HeaderData {
@@ -18,13 +19,17 @@ export interface HeroData {
   title: string;
   subTitle: string;
   primaryCta: string;
-  secondaryCta: string;
   highlightedTitle: string;
 }
 
 export interface ServicesData {
   title: string;
   services: Service[];
+}
+
+export interface VideoData {
+  title: string;
+  videoId: string;
 }
 
 export interface Service {
@@ -43,12 +48,14 @@ export interface Adventaje {
   description: string;
   img: string;
   imageAlt: string;
-  checks: string[];
 }
 
 export interface FooterData {
   logo: string;
   description: string;
+  info: string;
+  companyName: string;
+  contacts: string;
   links: Link[];
   socials: Social[];
 }
@@ -65,14 +72,8 @@ export interface Social {
 
 export interface BrandsData {
   title: string;
+  image: string;
   description: string;
-  brands: Brand[];
-}
-
-export interface Brand {
-  label: string;
-  icon: string;
-  href: string;
 }
 
 export interface PricingData {
@@ -81,6 +82,7 @@ export interface PricingData {
 }
 
 export interface Tier {
+  img: string;
   title: string;
   description: string;
   price: Price;
