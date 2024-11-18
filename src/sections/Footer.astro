@@ -15,6 +15,9 @@ const { data } = Astro.props;
         id="contacts-section"
         class="w-11/12 scroll-m-32 flex flex-col justify-center text-center gap-y-8 pt-8 mt-24 bg-black"
 >
+    <div class="text-sm text-primary mt-2">
+        Стоимость на сайте указана без учета доставки и налогов!
+    </div>
     <section class="flex justify-center">
         <Action as="a" href="/" title={ data.logo }>
             <Logo/>
