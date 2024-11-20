@@ -85,9 +85,7 @@ export interface Tier {
   img: string;
   title: string;
   description: string;
-  price: Price;
   features: string[];
-  cta: string;
 }
 
 export interface Price {

@@ -1,3 +1,4 @@
+import react from '@astrojs/react';
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
@@ -9,7 +10,7 @@ export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:4321"
     : "https://aliasevpro.ru/",
-  integrations: [tailwind(), sitemap(),
+  integrations: [tailwind(), sitemap(), react(),
     robotsTxt({
         policy: [
           {

@@ -30,5 +30,13 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "prettier.documentSelectors": ["**/*.astro"]
+"prettier.documentSelectors": [
+	"**/*.astro"
+],
+"[json]": {
+	"editor.defaultFormatter": "vscode.json-language-features"
+},
+"[typescriptreact]": {
+	"editor.defaultFormatter": "vscode.typescript-language-features"
+}
 }
