@@ -1,6 +1,5 @@
 ---
 import Shop from "@/components/Shop";
-import SectionTitle from "../components/SectionTitle.astro";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../sections/Footer.astro";
 import Header from "../sections/Header.astro";
@@ -19,10 +18,7 @@ const products = await getProductsData();
                     subTitle="Выберите интересующие позиции и параметры, нажмите конопку отправить заявку. Мы свяжемся с вами для уточнения деталей и пришлем ссылку для оплаты заказа."
             />
         </div>
-        <section>
-            <SectionTitle>
-                <h2 class="text-center">Каталог в разработке</h2>
-            </SectionTitle>
+        <section class="w-11/12 md:w-3/4">
 			<Shop client:load products={products}/>
         </section>
         <Footer data={ data.footerData }/>

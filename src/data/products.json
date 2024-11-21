@@ -1,0 +1,97 @@
+[
+    {
+        "id": 1,
+        "name": "Прозрачный полиуретан 1,52м-15мп TPU 180 mic",
+        "desc": "economy series, soft top coat",
+        "priceroll": 50000,
+        "pricecut": 3850
+    },
+    {
+        "id": 2,
+        "name": "Прозрачный полиуретан 1,52м-15мп TPU 200mic",
+        "desc": "standard, middle top coat",
+        "priceroll": 55000,
+        "pricecut": 4200
+    },
+    {
+        "id": 3,
+        "name": "Прозрачный полиуретан 1,52м-15мп TPU 210 mic",
+        "desc": "premium, hard top coat",
+        "priceroll": 60000,
+        "pricecut": 4550
+    },
+    {
+        "id": 4,
+        "name": "Прозрачный полиуретан 1,52м-15мп TPU 225 mic",
+        "desc": "grand, hard top coat",
+        "priceroll": 65000,
+        "pricecut": 4900
+    },
+    {
+        "id": 5,
+        "name": "Прозрачный полиуретан 1,52м-15мп TPU 200 mic matt /satin",
+        "desc": "middle top coat",
+        "priceroll": 65000,
+        "pricecut": 4900
+    },
+    {
+        "id": 6,
+        "name": "Черный полиуретан 1,52м-15мп TPU matt/ satin",
+        "desc": "Black Russian",
+        "priceroll": 65000,
+        "pricecut": 4900
+    },
+    {
+        "id": 7,
+        "name": "TPH Гибрид черный глянец без каналов 1,52м-15мп",
+        "priceroll": 45000,
+        "pricecut": 3480
+    },
+    {
+        "id": 8,
+        "name": "PET Гибрид цветной с каналами 1,52м-18мп",
+        "priceroll": 45000,
+        "pricecut": 3480
+    },
+    {
+        "id": 9,
+        "name": "PET Карбон рваный, классический 1,52м-18мп",
+        "priceroll": 54000,
+        "pricecut": 3480
+    },
+    {
+        "id": 10,
+        "name": "Гибрид фотохром для оптики самозатемняющийся 3 вида 0,6м-15мп",
+        "priceroll": 45000,
+        "pricecut": 3480
+    },
+    {
+        "id": 11,
+        "name": "Гибрид Тонировка оптики",
+        "priceroll": 21200,
+        "pricecut": 1700
+    },
+    {
+        "id": 12,
+        "name": "Тонировочная плёнка керамическая премиум Aliasev Pro 1,52м-30мп",
+        "desc": "Плотность 5, 15, 20, 35, 50%",
+        "priceroll": 25440,
+        "pricecut": 1148
+    },
+    {
+        "id": 13,
+        "name": "Атермальная тонировка 1,52-30мп",
+        "priceroll": 50880,
+        "pricecut": 2880
+    },
+    {
+        "id": 14,
+        "name": "Лезвия для ножей каленые 30* 10шт",
+        "price": 530
+    },
+    {
+        "id": 15,
+        "name": "Праймер 20мл",
+        "price": 1060
+    }
+]
