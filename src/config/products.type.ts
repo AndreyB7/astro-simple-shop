@@ -2,9 +2,11 @@ export type ProductsData = Product[];
 
 export type Product = {
 	id: number,
+	type: string,
+	art: number,
 	name: string,
-	desc?: string,
+	desc: string,
+	price: number,
+	roll?: number,
 	priceroll?: number,
-	pricecut?: number,
-	price?: number,
 }

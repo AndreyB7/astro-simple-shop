@@ -1,97 +1,188 @@
 [
     {
         "id": 1,
-        "name": "Прозрачный полиуретан 1,52м-15мп TPU 180 mic",
-        "desc": "economy series, soft top coat",
-        "priceroll": 50000,
-        "pricecut": 3850
+        "type": "film",
+        "art": 1,
+        "name": "Econom TPU gloss 180 mic",
+        "roll": 15,
+        "priceroll": 53000,
+        "price": 3850,
+        "desc": "Прозрачный полиуретан, ролик 1,52м - 15мп. Soft top coat."
     },
     {
         "id": 2,
-        "name": "Прозрачный полиуретан 1,52м-15мп TPU 200mic",
-        "desc": "standard, middle top coat",
-        "priceroll": 55000,
-        "pricecut": 4200
+        "type": "film",
+        "art": 2,
+        "name": "Standard TPU gloss 200mic",
+        "roll": 15,
+        "priceroll": 58300,
+        "price": 4200,
+        "desc": "Прозрачный полиуретан, ролик 1,52м - 15мп. Middle top coat."
     },
     {
         "id": 3,
-        "name": "Прозрачный полиуретан 1,52м-15мп TPU 210 mic",
-        "desc": "premium, hard top coat",
-        "priceroll": 60000,
-        "pricecut": 4550
+        "type": "film",
+        "art": 3,
+        "name": "Premium TPU gloss 210mic",
+        "roll": 15,
+        "priceroll": 63600,
+        "price": 4550,
+        "desc": "Прозрачный полиуретан, ролик 1,52м - 15мп. Hard top coat."
     },
     {
         "id": 4,
-        "name": "Прозрачный полиуретан 1,52м-15мп TPU 225 mic",
-        "desc": "grand, hard top coat",
-        "priceroll": 65000,
-        "pricecut": 4900
+        "type": "film",
+        "art": 4,
+        "name": "Grand TPU gloss 225mic",
+        "roll": 15,
+        "priceroll": 68900,
+        "price": 4900,
+        "desc": "Прозрачный полиуретан, ролик 1,52м - 15мп. Hard top coat."
     },
     {
         "id": 5,
-        "name": "Прозрачный полиуретан 1,52м-15мп TPU 200 mic matt /satin",
-        "desc": "middle top coat",
-        "priceroll": 65000,
-        "pricecut": 4900
+        "type": "film",
+        "art": 5,
+        "name": "TPU 200mic Deep Matt",
+        "roll": 15,
+        "priceroll": 68900,
+        "price": 4900,
+        "desc": "Прозрачный матовый полиуретан, ролик 1,52м - 15мп. Hard top coat."
     },
     {
         "id": 6,
-        "name": "Черный полиуретан 1,52м-15мп TPU matt/ satin",
-        "desc": "Black Russian",
-        "priceroll": 65000,
-        "pricecut": 4900
+        "type": "film",
+        "art": 6,
+        "name": "TPU 200mic Satin Matt",
+        "roll": 15,
+        "priceroll": 68900,
+        "price": 4900,
+        "desc": "Прозрачный матовый полиуретан, ролик 1,52м - 15мп. Hard top coat."
     },
     {
         "id": 7,
-        "name": "TPH Гибрид черный глянец без каналов 1,52м-15мп",
-        "priceroll": 45000,
-        "pricecut": 3480
+        "type": "film",
+        "art": 7,
+        "name": "Black  Gloss TPU",
+        "roll": 15,
+        "priceroll": 68900,
+        "price": 4900,
+        "desc": "Черный полиуретан глянец hard top coat, ролик 1,52м - 15мп."
     },
     {
         "id": 8,
-        "name": "PET Гибрид цветной с каналами 1,52м-18мп",
-        "priceroll": 45000,
-        "pricecut": 3480
+        "type": "film",
+        "art": 7,
+        "name": "Black  Matt TPU",
+        "roll": 15,
+        "priceroll": 68900,
+        "price": 4900,
+        "desc": "Черный полиуретан матовый , hard top coat, ролик 1,52м - 15мп."
     },
     {
         "id": 9,
-        "name": "PET Карбон рваный, классический 1,52м-18мп",
-        "priceroll": 54000,
-        "pricecut": 3480
+        "type": "film",
+        "art": 8,
+        "name": "Hybrid Black Gloss TPH",
+        "roll": 18,
+        "priceroll": 47700,
+        "price": 3480,
+        "desc": "Гибрид черный глянец без каналов, ролик 1,52м - 15мп"
     },
     {
         "id": 10,
-        "name": "Гибрид фотохром для оптики самозатемняющийся 3 вида 0,6м-15мп",
-        "priceroll": 45000,
-        "pricecut": 3480
+        "type": "film",
+        "art": 9,
+        "name": "Color PET",
+        "roll": 18,
+        "priceroll": 47700,
+        "price": 3480,
+        "desc": "Гибрид цветной с каналами, ролик 1,52м - 18мп"
     },
     {
         "id": 11,
-        "name": "Гибрид Тонировка оптики",
-        "priceroll": 21200,
-        "pricecut": 1700
+        "type": "film",
+        "art": 10,
+        "name": "Carbon PET",
+        "roll": 18,
+        "priceroll": 57240,
+        "price": 3480,
+        "desc": "Карбон рваный, классический, ролик 1,52м - 18мп"
     },
     {
         "id": 12,
-        "name": "Тонировочная плёнка керамическая премиум Aliasev Pro 1,52м-30мп",
-        "desc": "Плотность 5, 15, 20, 35, 50%",
-        "priceroll": 25440,
-        "pricecut": 1148
+        "type": "film",
+        "art": 11,
+        "name": "Black Photochromic TPU",
+        "roll": 15,
+        "priceroll": 47700,
+        "price": 3480,
+        "desc": "Гибрид фотохром для оптики, самозатемняющийся, ролик 0,6м - 15мп"
     },
     {
         "id": 13,
-        "name": "Атермальная тонировка 1,52-30мп",
-        "priceroll": 50880,
-        "pricecut": 2880
+        "type": "film",
+        "art": 12,
+        "name": "Light black Photochromic TPU",
+        "roll": 15,
+        "priceroll": 47700,
+        "price": 3480,
+        "desc": "Полиуретан фотохром для оптики, самозатемняющийся, ролик 0,6м - 15мп"
     },
     {
         "id": 14,
-        "name": "Лезвия для ножей каленые 30* 10шт",
-        "price": 530
+        "type": "film",
+        "art": 13,
+        "name": "Violet Photochromic TPU",
+        "roll": 15,
+        "priceroll": 47700,
+        "price": 3480,
+        "desc": "Полиуретан фотохром для оптики, самозатемняющийся, ролик 0,6м - 15мп"
     },
     {
         "id": 15,
+        "type": "film",
+        "art": 14,
+        "name": "Headlights TPH",
+        "roll": 15,
+        "priceroll": 19080,
+        "price": 1272,
+        "desc": "Гибрид для тонировки оптики, ролик 0,6м - 15мп"
+    },
+    {
+        "id": 16,
+        "type": "film",
+        "art": 15,
+        "name": "Ceramic Premium Aliasev Pro",
+        "roll": 30,
+        "priceroll": 25440,
+        "price": 1148,
+        "desc": "Тонировочная плёнка керамическая премиум, ролик 1,52м - 30мп. Плотность 5, 15, 20, 35, 50%"
+    },
+    {
+        "id": 17,
+        "type": "film",
+        "art": 16,
+        "name": "Athermal",
+        "roll": 30,
+        "priceroll": 50880,
+        "price": 2880,
+        "desc": "Атермальная тонировка, ролик 1,52м - 30мп"
+    },
+    {
+        "id": 18,
+        "type": "single",
+        "art": 17,
+        "name": "Лезвия для ножей",
+        "price": 530,
+        "desc": "Лезвия для ножей каленые 30*10шт"
+    },
+    {
+        "id": 19,
+        "type": "single",
+        "art": 18,
         "name": "Праймер 20мл",
-        "price": 1060
+        "price": 1060,
+        "desc": "Отличное усиление адгезии, идеален для выпуклых мест и впадин, где пленка растянута. 20мл"
     }
 ]

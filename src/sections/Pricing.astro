@@ -20,9 +20,6 @@ const { data } = Astro.props;
     <div class="md:w-1/2 m-auto mt-10 text-lg text-center opacity-80 md:text-2xl" data-aos="fade-up">
         <div class="mb-4">
             Перед оформлением заказа ознакомьтесь с ответами на часто задаваемые вопросы
-            <div class="text-sm text-center text-primary mt-2">
-                Стоимость указана без учета доставки и налогов!
-            </div>
         </div>
         <Action as="a" type="button" href="/faq">
             Частые вопросы
@@ -40,19 +37,18 @@ const { data } = Astro.props;
                         <h3 class="text-4xl text-center font-semibold">{ tier.title }</h3>
                         <div class="text-xl text-center opacity-90">{ tier.description }</div>
                     </header>
-                        <hr
-                          class="my-1 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400" />
+                    <hr/>
                     <section class="flex justify-start px-4 pb-10">
-                      <ul class="flex flex-col gap-y-1 text-sm">
-                        {tier.features.map((feature) => (
-                          <li class="flex flex-row px-7 gap-x-1">
+                        <ul class="flex flex-col gap-y-1 text-sm">
+                          { tier.features.map((feature) => (
+                                  <li class="flex flex-row px-7 gap-x-1">
                             <span>
-                              <Icon class="w-4 h-4 text-primary" icon="CheckIcon" />
+                              <Icon class="w-4 h-4 text-primary" icon="CheckIcon"/>
                             </span>
-                              <div>{feature}</div>
-                          </li>
-                        ))}
-                      </ul>
+                                      <div>{ feature }</div>
+                                  </li>
+                          )) }
+                        </ul>
                     </section>
                 </Card>
         ))
@@ -60,10 +56,10 @@ const { data } = Astro.props;
     </div>
     <div class="flex justify-center px-4 pb-4">
         <Action
-          as="a"
-          class="bg-primary text-white w-72"
-          type="button"
-          href={urls.catalog}
+                as="a"
+                class="bg-primary text-white w-72"
+                type="button"
+                href={ urls.catalog }
         >
             заказать из каталога
         </Action>

@@ -19,7 +19,7 @@ const products = await getProductsData();
             />
         </div>
         <section class="w-11/12 md:w-3/4">
-			<Shop client:load products={products}/>
+            <Shop client:load products={ products }/>
         </section>
         <Footer data={ data.footerData }/>
     </main>
