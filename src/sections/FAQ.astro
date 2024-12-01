@@ -43,7 +43,7 @@ const faqs: FAQItem[] = [
                 { faq.question }
                   <span class={ "plus-icon transition-transform rotate-0" }>&#8250;</span>
               </button>
-              <div class="faq-answer overflow-hidden transition-all text-gray-600 max-h-0">
+              <div class="faq-answer overflow-hidden transition-all text-gray-600 max-h-0 max-h-screen">
                   <div class="mt-4" set:html={ marked.parse(faq.answer) }></div>
               </div>
           </div>
@@ -56,7 +56,7 @@ const faqs: FAQItem[] = [
 </div>
 <style>
     .active .faq-answer {
-        @apply max-h-96
+        @apply max-h-screen
     }
 
     .active .plus-icon {
