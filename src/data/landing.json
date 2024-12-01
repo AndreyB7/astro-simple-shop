@@ -121,9 +121,9 @@
 		"title": "Каталог и цены",
 		"tiers": [
 			{
-				"img": "films/poliuretan.webp",
+				"img": "products/TPU_Gloss_Clear_190_Mic.webp",
 				"title": "Полиуретан",
-				"description": "TPU - американский полиуретан Lubrizol, клей Agutek про-во Америка. Удобен для оклейки.",
+				"description": "TPU - американский полиуретан Lubrizol, клей Agutek пр-во Америка. Удобен для оклейки.",
 				"features": [
 					"Толщина 180,200,210,225 микрон",
 					"Высокая первичная прилипаемость",
@@ -133,7 +133,7 @@
 				]
 			},
 			{
-				"img": "films/film1.webp",
+				"img": "products/PET_2020_Bicolor_Tiffany.webp",
 				"title": "Гибрид",
 				"description": "TPH - гибридный полиуретан с эффектом само-заживления, PET - гибридный винил.",
 				"features": [
@@ -145,7 +145,7 @@
 				]
 			},
 			{
-				"img": "films/photochrome.webp",
+				"img": "products/TPU_Photochrome_Black_190_Mic.webp",
 				"title": "Фотохром",
 				"description": "Photochromic TPU - толщина 200 микрон, долгий срок службы, удобное нанесение",
 				"features": [
@@ -157,7 +157,7 @@
 				]
 			},
 			{
-				"img": "films/tint.webp",
+				"img": "products/Black_tint_film_35.webp",
 				"title": "Тонировка",
 				"description": "Классическая тонировка разной плотности для стекол и осветительных приборов",
 				"features": [
@@ -169,7 +169,7 @@
 				]
 			},
 			{
-				"img": "films/tools.webp",
+				"img": "imgs/tools.webp",
 				"title": "Инструмент",
 				"description": "Личный выбор профессионального инструмента опытного оклейщика.",
 				"features": [
@@ -181,7 +181,7 @@
 				]
 			},
 			{
-				"img": "films/liquid.webp",
+				"img": "imgs/liquid.webp",
 				"title": "Жидкости",
 				"description": "Жидкие средства для установки и снятия защитных пленок.",
 				"features": [

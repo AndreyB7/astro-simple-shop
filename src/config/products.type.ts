@@ -6,6 +6,7 @@ export type Product = {
 	art: number,
 	name: string,
 	desc: string,
+	img: string,
 	price: number,
 	roll?: number,
 	priceroll?: number,

@@ -60,7 +60,7 @@ const Shop = ({ products }: Props) => {
             return (
               <div key={ p.id } className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
                 <div className='w-full relative flex pb-[61%] h-0'>
-                  <img src='/films/film1.webp' alt={ p.name }
+                  <img src={`/products/${p.img}`} alt={ p.name }
                        className="rounded-t-2xl object-cover w-full h-full absolute"/>
                 </div>
                 <div className='p-4 flex flex-col flex-grow justify-self-stretch w-full'>
