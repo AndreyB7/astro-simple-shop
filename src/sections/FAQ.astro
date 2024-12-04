@@ -10,8 +10,8 @@ interface FAQItem {
 // FAQ data
 const faqs: FAQItem[] = [
   {
-    question: "В чем разница между цветным полиуретаном и гибиридом?",
-    answer: "- Цена – гибрид дешевле полиуретана примерно 25 %. \n" +
+    question: "В чем разница между цветным полиуретаном и гибридом?",
+    answer: "- Цена – гибрид дешевле полиуретана примерно на 25%. \n" +
       "- Намотка в ролике – гибрид имеет 18 метровую намотку в отличие от полиуретана в котором 15мп. \n" +
       "- Качество окраса – у гибрида богаче и интереснее палитра цветов потому что его можно красить многослойными сложными окрасками. \n\n" +
       "- Простота нанесения – гибридные пленки можно клеить как на мокрую так и на сухую! \n\n" +
@@ -43,7 +43,7 @@ const faqs: FAQItem[] = [
                 { faq.question }
                   <span class={ "plus-icon transition-transform rotate-0" }>&#8250;</span>
               </button>
-              <div class="faq-answer overflow-hidden transition-all text-gray-600 max-h-0 max-h-screen">
+              <div class="faq-answer overflow-hidden transition-all max-h-0 text-gray-500">
                   <div class="mt-4" set:html={ marked.parse(faq.answer) }></div>
               </div>
           </div>
@@ -66,7 +66,7 @@ const faqs: FAQItem[] = [
 <style is:inline>
     .faq-answer ul {
         list-style: decimal;
-        padding-left: 1em;
+        margin-left: 1.5em;
     }
 </style>
 <script>

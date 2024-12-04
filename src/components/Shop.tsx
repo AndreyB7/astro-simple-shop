@@ -1,8 +1,7 @@
-import type { ProductsData } from '@/config/products.type';
+import type { Product, ProductsData } from '@/config/products.type';
+import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorageUtils.ts";
 import { currencyFormat } from '@/utils/utils';
 import React, { useEffect, useState } from 'react';
-import type { Product } from "@/config/products.type";
-import { getFromLocalStorage, saveToLocalStorage } from "@/utils/localStorageUtils.ts";
 
 type Props = {
   products: ProductsData
@@ -54,7 +53,7 @@ const Shop = ({ products }: Props) => {
         </div>
         <button className={ productButton + ' m-4' } onClick={ clearCart }>Очистить выбор</button>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-5 place-items-center'>
+      <div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
         { products.map(p => {
             const isInCart = cart.some(cp => p.id === cp.id);
             return (
@@ -63,9 +62,9 @@ const Shop = ({ products }: Props) => {
                   <img src={`/products/${p.img}`} alt={ p.name }
                        className="rounded-t-2xl object-cover w-full h-full absolute"/>
                 </div>
-                <div className='p-4 flex flex-col flex-grow justify-self-stretch w-full'>
-                  <div className='text-xl font-bold'>{ p.name }</div>
-                  { p.desc && <div className='text-base opacity-50'>{ p.desc }</div> }
+                <div className='p-2 md:p-4 flex flex-col flex-grow justify-self-stretch w-full'>
+                  <div className='text-lg font-semibold'>{ p.name }</div>
+                  { p.desc && <div className='opacity-50 text-sm'>{ p.desc }</div> }
                   <div>
                     <hr/>
                   </div>
