@@ -26,6 +26,7 @@ const Shop = ({ products }: Props) => {
 
 	const [cartOpen, setCartOpen] = useState<boolean>(false);
 	const toggleCart = () => setCartOpen((prev) => !prev);
+
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [isHasMessage, setIsHasMessage] = useState('')
 	const [formData, setFormData] = useState<FormData>({
@@ -34,6 +35,7 @@ const Shop = ({ products }: Props) => {
 		email: "",
 		address: "",
 	});
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const toggleForm = () => setIsFormOpen((prev) => !prev);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,6 +49,7 @@ const Shop = ({ products }: Props) => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setIsSubmitting(true);
 
 		const data: {
 			cart: {
@@ -83,11 +86,14 @@ const Shop = ({ products }: Props) => {
 				saveToLocalStorage<string>(localStorageKeys.contacts, JSON.stringify(formData));
 				setIsFormOpen(false);
 			} else {
-				setIsHasMessage(responseData.message || "Ошибка обработки заказа, пожалуста свяжитесь с нами по телефону");
+				setIsHasMessage("Ошибка обработки заказа, пожалуста свяжитесь с нами по телефону");
+				console.log("Error submitting the form:", responseData.message);
 			}
 		} catch (error) {
 			console.error("Error submitting the form:", error);
-			alert("Ошибка отправки заказа, пожалуста проверте подключение к интернету или свяжитесь с нами по телефону");
+			setIsHasMessage("Ошибка отправки заказа, пожалуста проверте подключение к интернету или свяжитесь с нами по телефону");
+		} finally {
+			setIsSubmitting(false); // Re-enable button
 		}
 	};
 
@@ -134,7 +140,8 @@ const Shop = ({ products }: Props) => {
 		<>
 			<div className="flex justify-center flex-col items-center">
 				<div className={'w-full max-w-xl p-2 px-4 rounded-2xl bg-gray-700 text-center my-4'}>
-					Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм
+					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате Телеграм
+					{/* Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм */}
 					<div className={'grid justify-center p-2 m-1'}>
 						<a className={'m-1 ' + productButton} href={'tel:+79955702014'} target='_blank'>+7 (995) 570-20-14</a>
 						<a className={'m-1 ' + productButton} href={'https://telegram.me/aliasevpro'} target='_blank'>Сообщение Телеграм</a>
@@ -259,7 +266,7 @@ const Shop = ({ products }: Props) => {
 							/>
 							<textarea
 								name="address"
-								placeholder="Адрес доставки"
+								placeholder="Почтовый адрес доставки"
 								value={formData.address}
 								onChange={handleInputChange}
 								className="w-full p-3 border border-gray-300 rounded-lg"
@@ -277,6 +284,7 @@ const Shop = ({ products }: Props) => {
 								<button
 									type="submit"
 									className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+									disabled={isSubmitting}
 								>
 									Отправить
 								</button>
