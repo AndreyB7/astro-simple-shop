@@ -1,6 +1,10 @@
-import type { Product } from "@/config/products.type";
 
-export const saveToLocalStorage = (key: string, value: Product[]) => {
+export const localStorageKeys = {
+	contacts: 'contacts',
+	cart: 'cart'
+}
+
+export const saveToLocalStorage = <T>(key: string, value: T) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 

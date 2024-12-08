@@ -41,5 +41,11 @@
 },
 "[jsonc]": {
 	"editor.defaultFormatter": "vscode.json-language-features"
+},
+"[typescript]": {
+	"editor.defaultFormatter": "vscode.typescript-language-features"
+},
+"[php]": {
+	"editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
 }
 }
