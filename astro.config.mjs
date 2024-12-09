@@ -15,8 +15,8 @@ export default defineConfig({
         policy: [
           {
             userAgent: '*',
-            // allow: '/',
-            disallow: '/',
+            allow: '/',
+            // disallow: '/',
             crawlDelay: 10,
           }
         ],

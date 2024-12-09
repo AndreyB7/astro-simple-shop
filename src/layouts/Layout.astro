@@ -26,6 +26,47 @@ import "aos/dist/aos.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="canonical" href={import.meta.env.SITE} />
 		<script type="application/ld+json" set:html={ldJson} />
+		<!-- Yandex.Metrika counter -->
+		<script type="text/javascript">
+			(function (m, e, t, r, i, k, a) {
+				if (m[i]) return;
+				m[i] = function () {
+					(m[i].a = m[i].a || []).push(arguments);
+				};
+				m[i].l = 1 * new Date();
+				for (var j = 0; j < document.scripts.length; j++) {
+					if (document.scripts[j].src === r) return;
+				}
+				k = e.createElement(t);
+				a = e.getElementsByTagName(t)[0];
+				k.async = 1;
+				k.src = r;
+				a.parentNode.insertBefore(k, a);
+			})(
+				window,
+				document,
+				"script",
+				"https://mc.yandex.ru/metrika/tag.js",
+				"ym",
+			);
+
+			ym(99150938, "init", {
+				clickmap: true,
+				trackLinks: true,
+				accurateTrackBounce: true,
+				webvisor: true,
+			});
+		</script>
+		<noscript>
+			<div>
+				<img
+					src="https://mc.yandex.ru/watch/99150938"
+					style="position:absolute; left:-9999px;"
+					alt=""
+				/>
+			</div>
+		</noscript>
+		<!-- /Yandex.Metrika counter -->
 	</head>
 	<body class="bg-black text-white text-opacity-80">
 		<slot />
@@ -57,9 +98,11 @@ import "aos/dist/aos.css";
 		height: auto;
 	}
 
-	button:disabled,button[disabled],
-	button:disabled:hover, button[disabled]:hover {
-		opacity: .5;
+	button:disabled,
+	button[disabled],
+	button:disabled:hover,
+	button[disabled]:hover {
+		opacity: 0.5;
 	}
 
 	.divider {
