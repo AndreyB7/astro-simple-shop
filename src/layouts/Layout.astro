@@ -1,12 +1,13 @@
 ---
-import type { Meta } from "@/config/landing.interface";
+import type { Meta, Seo } from "@/config/landing.interface";
 import "@fontsource-variable/rubik";
 
 interface Props {
 	meta: Meta;
+	seo: Seo;
 }
 
-const { meta } = Astro.props;
+const { meta, seo } = Astro.props;
 
 const ldJson = JSON.stringify(meta.ldJson);
 
@@ -20,8 +21,8 @@ import "aos/dist/aos.css";
 >
 	<head>
 		<meta charset={meta.charset ?? "UTF-8"} />
-		<title>{meta.title}</title>
-		<meta name="description" content={meta.description} />
+		<title>{seo.title}</title>
+		<meta name="description" content={seo.description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="canonical" href={import.meta.env.SITE} />

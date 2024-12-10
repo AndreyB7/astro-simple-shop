@@ -1,7 +1,5 @@
 {
 	"meta": {
-		"title": "Aliasev PRO Автомобильные Защитные Пленки",
-		"description": "Автомобильные Защитные Пленки",
 		"lang": "ru",
 		"charset": "UTF-8",
 		"ldJson": {
@@ -13,13 +11,13 @@
 			"logo": "./public/favicon.svg",
 			"contactPoint": {
 				"@type": "ContactPoint",
-				"email": "info@aliasevpro.ru",
+				"email": "Stanislav.alyasev@yandex.ru",
 				"contactType": "Client Service"
 			},
 			"sameAs": [
-				"https://www.twitter.com/yourpage",
-				"https://www.instagram.com/yourpage",
-				"https://www.linkedin.com/company/yourpage"
+				"",
+				"",
+				""
 			]
 		}
 	},

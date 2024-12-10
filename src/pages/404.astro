@@ -1,0 +1,29 @@
+---
+import Action from "@/components/Action.astro";
+import { urls } from "@/config/constants";
+import type { Seo } from "@/config/landing.interface";
+import Layout from "@/layouts/Layout.astro";
+import Footer from "@/sections/Footer.astro";
+import Header from "@/sections/Header.astro";
+import HeroSingle from "@/sections/HeroSingle.astro";
+import { getLandingData } from "@/services/data.service";
+
+const data = await getLandingData();
+const seo: Seo = {
+	title: 'Защитные пленки Aliasevpro 404',
+	description: 'Страница не найдена!'
+}
+---
+
+<Layout meta={data.meta} seo={seo}>
+	<Header data={data.headerData} />
+	<main class="flex flex-col justify-center items-center">
+		<div class="w-11/12 md:w-3/4 text-center">
+			<HeroSingle title="404 Страница не найдена!" subTitle="" />
+			<Action as="a" type="button" href={urls.home}>
+				Перейти на главную
+			</Action>
+		</div>
+		<Footer data={data.footerData} />
+	</main>
+</Layout>

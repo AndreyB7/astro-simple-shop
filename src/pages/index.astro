@@ -1,4 +1,5 @@
 ---
+import type { Seo } from "@/config/landing.interface";
 import Layout from "@/layouts/Layout.astro";
 import Adventajes from "@/sections/Adventajes.astro";
 import Brands from "@/sections/Brands.astro";
@@ -11,9 +12,13 @@ import { getLandingData } from "@/services/data.service";
 import Video from "../sections/Video.astro";
 
 const data = await getLandingData();
+const seo: Seo = {
+	title: "Aliasev PRO Автомобильные Защитные Пленки",
+	description: "Личный выбор защитных и декоративных пленок и сопутствующих товаров от оклейщика c опытом 20 лет. Заказывайте, проверено!",
+}
 ---
 
-<Layout meta={ data.meta }>
+<Layout meta={ data.meta } seo={seo}>
     <Header data={ data.headerData }/>
     <main class="flex flex-col justify-center items-center">
         <div class="w-11/12 md:w-3/4">

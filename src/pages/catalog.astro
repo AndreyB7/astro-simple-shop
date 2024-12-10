@@ -1,5 +1,6 @@
 ---
 import Shop from "@/components/Shop";
+import type { Seo } from "@/config/landing.interface";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../sections/Footer.astro";
 import Header from "../sections/Header.astro";
@@ -7,9 +8,13 @@ import HeroSingle from "../sections/HeroSingle.astro";
 import { getLandingData, getProductsData } from "../services/data.service";
 const data = await getLandingData();
 const products = await getProductsData();
+const seo: Seo = {
+	title: 'Каталог защитных пленок Aliasevpro',
+	description: 'Защитные пленки и сопутствующие товары со склада в Новисибирске.'
+}
 ---
 
-<Layout meta={ data.meta }>
+<Layout meta={ data.meta } seo={seo}>
     <Header data={ data.headerData }/>
     <main class="flex flex-col justify-center items-center">
         <div class="w-11/12 md:w-3/4">
