@@ -1,140 +1,74 @@
-import type { Product, ProductsData } from '@/config/products.type';
-import CartIcon from '@/icons/commons/CartIcon';
-import CloseIcon from "@/icons/commons/CloseIcon";
-import { getFromLocalStorage, localStorageKeys, saveToLocalStorage } from "@/utils/localStorageUtils.ts";
-import { countProductTotal, currencyFormat } from '@/utils/utils';
-import React, { useEffect, useState } from 'react';
-import CartItem from './CartItem';
+import type { ProductsData } from '@/config/products.type';
+import { productButton, productButtonSelected } from '@/styles/globalStyles';
+import { currencyFormat } from '@/utils/utils';
+import React, { useContext, useEffect, useState } from 'react';
+import Cart from './Cart';
+import { ShopContext } from './ShopContext';
 
+const catDictionary: {
+	[key: string]: string;
+} = {
+	all: 'Все товары',
+	poliuretan: 'Полиуретан',
+	color: 'Цветные',
+	photochrome: 'Фотохром',
+	optic: 'Для оптики',
+	tone: 'Тонировка',
+	liquid: 'Жидкости',
+}
 
 type Props = {
-	products: ProductsData
+	products: ProductsData;
+	productCategories: string[];
 }
 
-type FormData = {
-	name: string,
-	phone: string,
-	email: string,
-	address: string,
-}
+const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 bg-primary hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
 
-const productButton = 'uppercase px-3 py-1 text-sm md:text-base bg-gradient-to-b from-primary to-secondary md:px-6 md:py-2 rounded-lg text-center font-semibold hover:opacity-85 transition inline-block';
-const productButtonSelected = 'uppercase px-3 py-1 text-sm md:text-base bg-gradient-to-b from-green-800 to-green-700 md:px-6 md:py-2 rounded-lg text-center font-semibold hover:opacity-85 transition inline-block';
+const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
-const Shop = ({ products }: Props) => {
-	const [cart, setCart] = useState<Product[]>(() => []);
+	const context = useContext(ShopContext);
 
-	const [cartOpen, setCartOpen] = useState<boolean>(false);
-	const toggleCart = () => setCartOpen((prev) => !prev);
+	if (!context) {
+		return null; // or return a fallback UI if context is not available
+	}
 
-	const [isFormOpen, setIsFormOpen] = useState(false);
-	const [isHasMessage, setIsHasMessage] = useState('')
-	const [formData, setFormData] = useState<FormData>({
-		name: "",
-		phone: "",
-		email: "",
-		address: "",
-	});
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const toggleForm = () => setIsFormOpen((prev) => !prev);
+	const { cart, addToCart, removeFromCart } = context;
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
-	};
-
-	const cartTotal = cart.reduce((sum: number, cartItem) => {
-		return sum + countProductTotal(cartItem);
-	}, 0);
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setIsSubmitting(true);
-
-		const data: {
-			cart: {
-				name: string,
-				quantity?: number,
-				productTotal: number,
-			}[];
-			total: number;
-			formData: FormData;
-		} = {
-			cart: cart.map(cartItem => ({
-				name: cartItem.name,
-				quantity: cartItem.quantity,
-				productTotal: countProductTotal(cartItem)
-			})),
-			total: cartTotal,
-			formData
-		};
-
-		try {
-			const response = await fetch("https://aliasevpro.ru/orderHandler.php", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			});
-
-			const responseData = await response.json();
-
-			if (response.ok) {
-				const responseMesssage = responseData.message || "Заяквка отправлена, мы свяжемся с вами в ближайшее время!";
-				setIsHasMessage(responseMesssage);
-				saveToLocalStorage<string>(localStorageKeys.contacts, JSON.stringify(formData));
-				setIsFormOpen(false);
-			} else {
-				setIsHasMessage("Ошибка обработки заказа, пожалуста свяжитесь с нами по телефону");
-				console.log("Error submitting the form:", responseData.message);
-			}
-		} catch (error) {
-			console.error("Error submitting the form:", error);
-			setIsHasMessage("Ошибка отправки заказа, пожалуста проверте подключение к интернету или свяжитесь с нами по телефону");
-		} finally {
-			setIsSubmitting(false); // Re-enable button
-		}
-	};
+	const [searchParams, setSearchParams] = useState<URLSearchParams>();
+	const [filteredProducts, setFilteredProducts] = useState(products);
 
 	useEffect(() => {
-		const storedCart = getFromLocalStorage(localStorageKeys.cart);
-		if (storedCart) {
-			setCart(storedCart);
-		}
-		const storedFormData = getFromLocalStorage(localStorageKeys.contacts);
-		if (storedFormData) {
-			setFormData(JSON.parse(storedFormData));
-		}
-	}, []);
+		// Parse URLSearchParams on the client side only
+		const params = new URLSearchParams(window.location.search);
+		setSearchParams(params);
+	  }, []);
 
-
-	// Save to local storage whenever cart changes
 	useEffect(() => {
-		saveToLocalStorage<Product[]>(localStorageKeys.cart, cart);
-	}, [cart]);
+		const searchParams = new URLSearchParams(window.location.search);
+		const category = searchParams.get('category');
+		let result = products;
+		if (category) {
+			result = result.filter((p) => p.cat.includes(category));
+		}
+		setFilteredProducts(result);
+	}, [searchParams]);
 
-	const addToCart = (product: Product) => {
-		product.quantity = product.roll ?? 1;
-		setCart((prevCart: Product[]) => [...prevCart, product]);
+	const handleFilterChange = (key: string, value: string) => {
+		const newParams = new URLSearchParams(searchParams);
+		if (value && value !== 'all') {
+			newParams.set(key, value);
+		} else {
+			newParams.delete(key);
+		}
+		if (window.history.pushState) {
+			const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
+			const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + paramsString;
+			window.history.pushState({ path: newurl }, '', newurl);
+		}
+		setSearchParams(newParams);
 	};
 
-	const handleUpdateQuantity = (id: number, newQuantity: number) => {
-		setCart((prevCart) =>
-			prevCart.map((item) =>
-				item.id === id ? { ...item, quantity: newQuantity } : item
-			)
-		);
-	};
-
-	const removeFromCart = (productId: number) => {
-		setCart((prevCart: Product[]) => prevCart.filter((item) => item.id !== productId));
-	};
-
-	const clearCart = () => {
-		setCart([]);
-		localStorage.removeItem(localStorageKeys.cart);
-	};
+	const currentCategory = searchParams?.get('category') ?? 'all';
 
 	return (
 		<>
@@ -148,8 +82,21 @@ const Shop = ({ products }: Props) => {
 					</div>
 				</div>
 			</div>
+			<div className="flex flex-wrap gap-4 justify-center items-center mb-4">
+				{productCategories.map(pc => (
+					<button
+						key={pc}
+						type="button"
+						value={pc}
+						onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleFilterChange('category', e.currentTarget.value)}
+						className={filterButtonCss + `${pc.includes(currentCategory) ? ' bg-gray-800 ring-2' : ''}`}
+					>
+						{catDictionary[pc]}
+					</button>
+				))}
+			</div>
 			<div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
-				{products.map(p => {
+				{filteredProducts.map(p => {
 					const isInCart = cart.some(cp => p.id === cp.id);
 					return (
 						<div key={p.id} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
@@ -191,127 +138,7 @@ const Shop = ({ products }: Props) => {
 				}
 				)}
 			</div>
-			{cart.length >= 1 &&
-				<button
-					onClick={toggleCart}
-					className="fixed z-30 w-10 h-10 bottom-4 right-4 transform bg-blue-500 text-white p-2 rounded-xl shadow-lg hover:bg-blue-600 focus:outline-none"
-				>
-					<div className='absolute min-w-5 -top-2 -right-2 bg-red-500 px-1 rounded-full text-sm'>{cart.length}</div>
-					<CartIcon />
-				</button>}
-			<div
-				className={`fixed z-30 inset-x-0 bottom-0 transform flex flex-col justify-center transition-transform ${cartOpen ? "translate-y-0" : "translate-y-full"
-					} bg-gray-700 shadow-lg rounded-t-xl p-4`}
-			>
-				<div className='flex justify-end absolute top-1 right-1'>
-					<button
-						onClick={toggleCart}
-						className="bg-red-500 max-w-8 text-white p-1 rounded-lg hover:bg-red-600"
-					>
-						<CloseIcon />
-					</button>
-				</div>
-				<div className={'w-full max-w-xl p-2 px-4 mx-auto rounded-2xl bg-gray-600 text-center'}>
-					<div className={'text-2xl text-center'}>Заказ:</div>
-					{cart.length < 1 && <div>Выберите из каталога для заказа</div>}
-					{cart.length >= 1 &&
-						<div className='max-h-[70vh] overflow-auto'>
-							{cart.map(cartItem =>
-								<CartItem key={cartItem.id} cartItem={cartItem} handleUpdateQuantity={handleUpdateQuantity} removeFromCart={removeFromCart} />
-							)}
-							<div className='text-right'>Итого: {currencyFormat(cartTotal)}</div>
-						</div>}
-				</div>
-				<div className='text-center'>
-					<button className={productButton + ' m-4'} onClick={toggleForm} disabled={cart.length < 1}>Оформить заказ</button>
-					<button className={productButton + ' m-4 hidden'} onClick={clearCart}>Очистить выбор</button>
-				</div>
-			</div>
-
-			{/* Contact Form Modal */}
-			{isFormOpen && (
-				<div className="fixed z-40 inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-					<div className="bg-gray-700 w-full max-w-lg p-6 rounded-lg shadow-lg text-center">
-						<h2 className="text-xl font-semibold text-center mb-4">
-							Отправка заказа
-						</h2>
-						<p className='text-sm'>Введите ваши контактные данные, мы свяжемся с вами в ближайщее время для уточнения стоимости доставки и пришлем ссылку для оплаты заказа</p>
-						<form onSubmit={handleSubmit} className="space-y-2 text-gray-600">
-							<input
-								type="text"
-								name="name"
-								placeholder="Имя"
-								value={formData.name}
-								onChange={handleInputChange}
-								className="w-full p-3 border border-gray-300 rounded-lg"
-								required
-							/>
-							<input
-								type="tel"
-								name="phone"
-								placeholder="Телефон"
-								value={formData.phone}
-								onChange={handleInputChange}
-								className="w-full p-3 border border-gray-300 rounded-lg"
-								required
-							/>
-							<input
-								type="email"
-								name="email"
-								placeholder="Email"
-								value={formData.email}
-								onChange={handleInputChange}
-								className="w-full p-3 border border-gray-300 rounded-lg"
-								required
-							/>
-							<textarea
-								name="address"
-								placeholder="Почтовый адрес доставки"
-								value={formData.address}
-								onChange={handleInputChange}
-								className="w-full p-3 border border-gray-300 rounded-lg"
-								rows={4}
-								required
-							></textarea>
-							<div className="flex justify-between">
-								<button
-									type="button"
-									onClick={toggleForm}
-									className="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
-								>
-									Отменить
-								</button>
-								<button
-									type="submit"
-									className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
-									disabled={isSubmitting}
-								>
-									Отправить
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			)}
-			{isHasMessage && (
-				<div className="fixed z-50 inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-					<div className="bg-gray-700 w-full max-w-lg p-6 rounded-lg shadow-lg text-center relative">
-						<div className='flex justify-end absolute top-1 right-1'>
-							<button
-								onClick={() => setIsHasMessage('')}
-								className="bg-red-500 max-w-8 text-white p-1 rounded-lg hover:bg-red-600"
-							>
-								<CloseIcon />
-							</button>
-						</div>
-						<h2 className="text-xl font-semibold text-center mb-4">
-							Отправка заказа
-						</h2>
-						<div>{isHasMessage}</div>
-					</div>
-				</div>
-			)
-			}
+			<Cart />
 		</>
 	);
 };

@@ -1,5 +1,5 @@
 ---
-import Shop from "@/components/Shop";
+import ShopWrapper from "@/components/ShopWrapper";
 import type { Seo } from "@/config/landing.interface";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../sections/Footer.astro";
@@ -8,24 +8,33 @@ import HeroSingle from "../sections/HeroSingle.astro";
 import { getLandingData, getProductsData } from "../services/data.service";
 const data = await getLandingData();
 const products = await getProductsData();
+const productCategories = [
+	'all',
+	...new Set(
+		products
+			.reduce((cats: string[], p) => cats.concat(p.cat.split(",")), [])
+			.map((cat) => cat.trim()),
+	),
+];
 const seo: Seo = {
-	title: 'Каталог защитных пленок Aliasevpro',
-	description: 'Защитные пленки и сопутствующие товары со склада в Новисибирске.'
-}
+	title: "Каталог защитных пленок Aliasevpro",
+	description:
+		"Защитные пленки и сопутствующие товары со склада в Новисибирске.",
+};
 ---
 
-<Layout meta={ data.meta } seo={seo}>
-    <Header data={ data.headerData }/>
-    <main class="flex flex-col justify-center items-center">
-        <div class="w-11/12 md:w-3/4">
-            <HeroSingle
-                    title="Каталог AliasevPro"
-                    subTitle="Выберите интересующие позиции и параметры, нажмите конопку отправить заявку. Мы свяжемся с вами для уточнения деталей и пришлем ссылку для оплаты заказа."
-            />
-        </div>
-        <section class="w-11/12 md:w-3/4">
-            <Shop client:load products={ products }/>
-        </section>
-        <Footer data={ data.footerData }/>
-    </main>
+<Layout meta={data.meta} seo={seo}>
+	<Header data={data.headerData} />
+	<main class="flex flex-col justify-center items-center">
+		<div class="w-11/12 md:w-3/4">
+			<HeroSingle
+				title="Каталог AliasevPro"
+				subTitle="Выберите интересующие позиции и параметры, нажмите конопку отправить заявку. Мы свяжемся с вами для уточнения деталей и пришлем ссылку для оплаты заказа."
+			/>
+		</div>
+		<section class="w-11/12 md:w-3/4">
+			<ShopWrapper client:load products={products} productCategories={productCategories}/>
+		</section>
+		<Footer data={data.footerData} />
+	</main>
 </Layout>
