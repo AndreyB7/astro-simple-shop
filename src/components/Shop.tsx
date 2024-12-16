@@ -22,7 +22,7 @@ type Props = {
 	productCategories: string[];
 }
 
-const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 bg-primary hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
+const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
 
 const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
@@ -39,9 +39,11 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
 	useEffect(() => {
 		// Parse URLSearchParams on the client side only
-		const params = new URLSearchParams(window.location.search);
-		setSearchParams(params);
-	  }, []);
+		if (typeof window !== 'undefined') {
+			const paramsOnLoad = new URLSearchParams(window.location.search);
+			setSearchParams(paramsOnLoad);
+		}
+	}, []);
 
 	useEffect(() => {
 		const searchParams = new URLSearchParams(window.location.search);
@@ -89,7 +91,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 						type="button"
 						value={pc}
 						onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleFilterChange('category', e.currentTarget.value)}
-						className={filterButtonCss + `${pc.includes(currentCategory) ? ' bg-gray-800 ring-2' : ''}`}
+						className={filterButtonCss + `${pc.includes(currentCategory) ? ' bg-gray-800 ring-2' : ' bg-primary'}`}
 					>
 						{catDictionary[pc]}
 					</button>
