@@ -1,5 +1,5 @@
 {
-    "version": "2.0.0",
+	"version": "2.0.0",
     "tasks": [
         {
             "label": "Start PHP Dev Server",
@@ -88,17 +88,6 @@
                 "close": false,
                 "showReuseMessage": false
             },
-            "dependsOn": ["Build Frontend"]
-        },
-        {
-            "label": "Build Frontend",
-            "type": "npm",
-            "script": "build",
-            "problemMatcher": ["$tsc"],
-            "presentation": {
-                "reveal": "silent",
-                "panel": "shared"
-            }
         },
         {
             "label": "Validate Backend Files",

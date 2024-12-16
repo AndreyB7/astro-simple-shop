@@ -1,18 +1,19 @@
 ---
 import type { HTMLTag, Polymorphic } from "astro/types";
 
-type actionTypes = "button" | "text" | "icon" | "default";
+type actionTypes = "button" | "buttonSm" | "text" | "icon" | "default";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
 
 const { as: Tag, class: className, type, ...props } = Astro.props;
 
 const defaultStyles = {
-  button:
-    "uppercase px-3 py-1 text-sm md:text-base bg-gradient-to-b from-primary to-secondary md:px-6 md:py-2 rounded-lg text-center font-semibold hover:scale-105 hover:opacity-85 transition inline-block",
-  text: "hover:opacity-50 hover:scale-105",
-  icon: "text-white hover:opacity-50 hover:scale-105",
-  default: "",
+	button: "uppercase px-3 py-1 text-sm md:text-base bg-gradient-to-b from-primary to-secondary md:px-6 md:py-2 rounded-lg text-center font-semibold hover:scale-105 hover:opacity-85 transition inline-block",
+	buttonSm:
+		"uppercase px-1 py-1 text-sm bg-gradient-to-b from-primary to-secondary md:px-3 md:py-1 rounded-lg text-center font-semibold hover:scale-105 hover:opacity-85 transition inline-block",
+	text: "hover:opacity-50 hover:scale-105",
+	icon: "text-white hover:opacity-50 hover:scale-105",
+	default: "",
 };
 
 const baseClass = defaultStyles[type as actionTypes] ?? "";

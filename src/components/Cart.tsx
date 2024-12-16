@@ -2,9 +2,9 @@ import CartIcon from "@/icons/commons/CartIcon";
 import CloseIcon from "@/icons/commons/CloseIcon";
 import { productButton } from "@/styles/globalStyles";
 import { countProductTotal, currencyFormat } from "@/utils/utils";
-import React, { useContext, useState, useMemo, useCallback } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import CartItem from "./CartItem";
-import { ShopContext, type ContactFormData } from "./ShopContext";
+import { ShopContext } from "./ShopContext";
 
 const Cart = () => {
 	const context = useContext(ShopContext);
@@ -47,7 +47,7 @@ const Cart = () => {
 		};
 
 		try {
-			const apiUrl = import.meta.env.API_URL || 'http://localhost:8000';
+			const apiUrl = 'https://aliasevpro.ru'; // import.meta.env.API_URL || 'http://localhost:8000';
 			const response = await fetch(`${apiUrl}/orderHandler.php`, {
 				method: "POST",
 				headers: {

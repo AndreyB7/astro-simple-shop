@@ -1,18 +1,21 @@
 import react from '@astrojs/react';
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import { defineConfig } from "astro/config";
 import robotsTxt from "astro-robots-txt";
+import { defineConfig } from "astro/config";
+
+const SITE_HOST = 'aliasevpro.ru';
+const SITE_URL = `https://${SITE_HOST}`;
 
 // https://astro.build/config
 export default defineConfig({
 	site: import.meta.env.DEV
 		? "http://localhost:4321"
-		: "https://aliasevpro.ru",
+		: SITE_URL,
 	integrations: [
 		tailwind(),
 		sitemap({
-			filter: (page) => page !== 'https://aliasevpro.ru/404_error/',
+			filter: (page) => page !== `${SITE_URL}/404_error/`,
 			changefreq: 'weekly',
 			priority: 0.7,
 			lastmod: new Date(),
@@ -23,13 +26,13 @@ export default defineConfig({
 				{
 					userAgent: '*',
 					allow: '/',
-					disallow: ['/404_error', '/private/*'],
+					disallow: ['/404_error', '/private/*', '/*?*yclid=*'],
 					crawlDelay: 10,
-					sitemap: 'https://aliasevpro.ru/sitemap-index.xml'
+					sitemap: `${SITE_URL}/sitemap-index.xml`
 				}
 			],
 			sitemap: true,
-			host: 'https://aliasevpro.ru'
+			host: SITE_HOST
 		})
 	],
 	// SEO Optimization
