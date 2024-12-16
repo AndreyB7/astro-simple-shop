@@ -47,7 +47,8 @@ const Cart = () => {
 		};
 
 		try {
-			const response = await fetch("https://aliasevpro.ru/orderHandler.php", {
+			const apiUrl = import.meta.env.API_URL || 'http://localhost:8000';
+			const response = await fetch(`${apiUrl}/orderHandler.php`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

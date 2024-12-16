@@ -32,6 +32,8 @@
 .phpunit.result.cache
 /phplib/
 orderHandler.php
+config.*.php
+config.php
 
 # macOS System Files
 .DS_Store
