@@ -36,11 +36,11 @@
                 "--exclude='node_modules'",
                 "--exclude='.git'",
                 "--exclude='*.log'",
-                "--exclude='config.dev.php'",
+                "--exclude='config.development.php'",
                 "-e",
                 "ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
                 "--include=orderHandler.php",
-                "--include=config.prod.php",
+                "--include=config.production.php",
                 "--include=.env",
                 "--include=phplib/",
                 "--include='phplib/**'",
@@ -103,7 +103,7 @@
         {
             "label": "Validate Backend Files",
             "type": "shell",
-            "command": "test -f orderHandler.php && test -f config.prod.php && test -f .env && test -d phplib",
+            "command": "test -f orderHandler.php && test -f config.production.php && test -f .env && test -d phplib",
             "presentation": {
                 "reveal": "silent",
                 "panel": "shared"

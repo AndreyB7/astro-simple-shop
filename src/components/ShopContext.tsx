@@ -39,7 +39,7 @@ export const ShopProvider = ({ children }: Props) => {
 	const [cart, setCart] = useState<Cart>(() => {
 		const { data, error } = getFromLocalStorage<Cart>(localStorageKeys.cart);
 		if (error) {
-			console.error(error.message);
+			console.warn('Failed to load cart from localStorage:', error.message);
 		}
 		return data || [];
 	});
@@ -47,22 +47,22 @@ export const ShopProvider = ({ children }: Props) => {
 	const [formData, setFormData] = useState<ContactFormData>(() => {
 		const { data, error } = getFromLocalStorage<ContactFormData>(localStorageKeys.contacts);
 		if (error) {
-			console.error(error.message);
+			console.warn('Failed to load contacts from localStorage:', error.message);
 		}
 		return data || initFormData;
 	});
 
 	useEffect(() => {
-		const error = saveToLocalStorage<Cart>(localStorageKeys.cart, cart);
+		const error = saveToLocalStorage(localStorageKeys.cart, cart);
 		if (error) {
-			console.error(error.message);
+			console.warn('Failed to save cart to localStorage:', error.message);
 		}
 	}, [cart]);
 
 	useEffect(() => {
-		const error = saveToLocalStorage<ContactFormData>(localStorageKeys.contacts, formData);
+		const error = saveToLocalStorage(localStorageKeys.contacts, formData);
 		if (error) {
-			console.error(error.message);
+			console.warn('Failed to save contacts to localStorage:', error.message);
 		}
 	}, [formData]);
 
@@ -101,7 +101,7 @@ export const ShopProvider = ({ children }: Props) => {
 		setCart([]);
 		const error = removeFromLocalStorage(localStorageKeys.cart);
 		if (error) {
-			console.error(error.message);
+			console.warn('Failed to clear cart from localStorage:', error.message);
 		}
 	}, []);
 

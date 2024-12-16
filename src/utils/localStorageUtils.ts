@@ -8,6 +8,8 @@ type LocalStorageError = {
   error: unknown;
 };
 
+const isBrowser = typeof window !== 'undefined' && window.localStorage;
+
 const handleLocalStorageError = (operation: string, key: string, error: unknown): LocalStorageError => {
   const message = `Error ${operation} localStorage key "${key}": ${error instanceof Error ? error.message : 'Unknown error'}`;
   console.error(message, error);
@@ -15,6 +17,9 @@ const handleLocalStorageError = (operation: string, key: string, error: unknown)
 };
 
 export const saveToLocalStorage = <T>(key: string, value: T): LocalStorageError | undefined => {
+  if (!isBrowser) {
+    return handleLocalStorageError('saving to', key, new Error('localStorage is not available'));
+  }
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
@@ -23,6 +28,12 @@ export const saveToLocalStorage = <T>(key: string, value: T): LocalStorageError 
 };
 
 export const getFromLocalStorage = <T>(key: string): { data: T | null; error?: LocalStorageError } => {
+  if (!isBrowser) {
+    return {
+      data: null,
+      error: handleLocalStorageError('reading from', key, new Error('localStorage is not available'))
+    };
+  }
   try {
     const storedValue = localStorage.getItem(key);
     return { data: storedValue ? JSON.parse(storedValue) as T : null };
@@ -35,6 +46,9 @@ export const getFromLocalStorage = <T>(key: string): { data: T | null; error?: L
 };
 
 export const removeFromLocalStorage = (key: string): LocalStorageError | undefined => {
+  if (!isBrowser) {
+    return handleLocalStorageError('removing from', key, new Error('localStorage is not available'));
+  }
   try {
     localStorage.removeItem(key);
   } catch (error) {
