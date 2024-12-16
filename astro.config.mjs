@@ -23,7 +23,7 @@ export default defineConfig({
 		react(),
 		robotsTxt({
 			policy: [
-				{
+				{ 
 					userAgent: '*',
 					allow: '/',
 					disallow: ['/404_error', '/private/*', '/*?*yclid=*'],
