@@ -2,7 +2,7 @@ import CartIcon from "@/icons/commons/CartIcon";
 import CloseIcon from "@/icons/commons/CloseIcon";
 import { productButton } from "@/styles/globalStyles";
 import { countProductTotal, currencyFormat } from "@/utils/utils";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo, useCallback } from "react";
 import CartItem from "./CartItem";
 import { ShopContext, type ContactFormData } from "./ShopContext";
 
@@ -20,31 +20,28 @@ const Cart = () => {
 	const [isHasMessage, setIsHasMessage] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const toggleCart = () => setCartOpen((prev) => !prev);
-	const toggleForm = () => setIsFormOpen((prev) => !prev);
+	const toggleCart = useCallback(() => setCartOpen((prev) => !prev), []);
+	const toggleForm = useCallback(() => setIsFormOpen((prev) => !prev), []);
 
-	const cartTotal = cart.reduce((sum: number, cartItem) => {
+	const cartTotal = useMemo(() => cart.reduce((sum: number, cartItem) => {
 		return sum + countProductTotal(cartItem);
-	}, 0);
+	}, 0), [cart]);
+
+	const cartItems = useMemo(() => cart.map(cartItem => ({
+		name: cartItem.name,
+		quantity: cartItem.quantity,
+		productTotal: countProductTotal(cartItem)
+	})), [cart]);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (isSubmitting) return;
+		
 		setIsSubmitting(true);
+		setIsHasMessage('');
 
-		const data: {
-			cart: {
-				name: string,
-				quantity?: number,
-				productTotal: number,
-			}[];
-			total: number;
-			formData: ContactFormData;
-		} = {
-			cart: cart.map(cartItem => ({
-				name: cartItem.name,
-				quantity: cartItem.quantity,
-				productTotal: countProductTotal(cartItem)
-			})),
+		const data = {
+			cart: cartItems,
 			total: cartTotal,
 			formData
 		};
@@ -58,37 +55,44 @@ const Cart = () => {
 				body: JSON.stringify(data),
 			});
 
-			const responseData = await response.json();
-
-			if (response.ok) {
-				const responseMesssage = responseData.message || "Заяквка отправлена, мы свяжемся с вами в ближайшее время!";
-				setIsHasMessage(responseMesssage);
-				setIsFormOpen(false);
-			} else {
-				setIsHasMessage("Ошибка обработки заказа, пожалуста свяжитесь с нами по телефону");
-				console.log("Error submitting the form:", responseData.message);
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
 			}
+
+			const responseData = await response.json();
+			const responseMessage = responseData.message || "Заяквка отправлена, мы свяжемся с вами в ближайшее время!";
+			setIsHasMessage(responseMessage);
+			setIsFormOpen(false);
+			clearCart();
 		} catch (error) {
 			console.error("Error submitting the form:", error);
-			setIsHasMessage("Ошибка отправки заказа, пожалуста проверте подключение к интернету или свяжитесь с нами по телефону");
+			setIsHasMessage(
+				error instanceof Error && error.message === 'Network response was not ok'
+					? "Ошибка обработки заказа, пожалуста свяжитесь с нами по телефону"
+					: "Ошибка отправки заказа, пожалуста проверте подключение к интернету или свяжитесь с нами по телефону"
+			);
 		} finally {
-			setIsSubmitting(false); // Re-enable button
+			setIsSubmitting(false);
 		}
 	};
 
+	const CartButton = useMemo(() => cart.length >= 1 && (
+		<button
+			onClick={toggleCart}
+			className="fixed z-30 w-10 h-10 bottom-4 right-4 transform bg-blue-500 text-white p-2 rounded-xl shadow-lg hover:bg-blue-600 focus:outline-none"
+			aria-label="Open cart"
+		>
+			<div className='absolute min-w-5 -top-2 -right-2 bg-red-500 px-1 rounded-full text-sm'>{cart.length}</div>
+			<CartIcon />
+		</button>
+	), [cart.length, toggleCart]);
+
 	return (
 		<>
-			{cart.length >= 1 &&
-				<button
-					onClick={toggleCart}
-					className="fixed z-30 w-10 h-10 bottom-4 right-4 transform bg-blue-500 text-white p-2 rounded-xl shadow-lg hover:bg-blue-600 focus:outline-none"
-				>
-					<div className='absolute min-w-5 -top-2 -right-2 bg-red-500 px-1 rounded-full text-sm'>{cart.length}</div>
-					<CartIcon />
-				</button>}
+			{CartButton}
 			<div
-				className={`fixed z-30 inset-x-0 bottom-0 transform flex flex-col justify-center transition-transform ${cartOpen ? "translate-y-0" : "translate-y-full"
-					} bg-gray-700 shadow-lg rounded-t-xl p-4`}
+				className={`fixed z-30 inset-x-0 bottom-0 transform flex flex-col justify-center transition-transform ${cartOpen ? "translate-y-0" : "translate-y-full"} bg-gray-700 shadow-lg rounded-t-xl p-4`}
+				aria-hidden={!cartOpen}
 			>
 				<div className='flex justify-end absolute top-1 right-1'>
 					<button

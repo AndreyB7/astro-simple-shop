@@ -1,7 +1,7 @@
 import type { ProductsData } from '@/config/products.type';
 import { productButton, productButtonSelected } from '@/styles/globalStyles';
 import { currencyFormat } from '@/utils/utils';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo, useCallback } from 'react';
 import Cart from './Cart';
 import { ShopContext } from './ShopContext';
 
@@ -34,43 +34,53 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
 	const { cart, addToCart, removeFromCart } = context;
 
-	const [searchParams, setSearchParams] = useState<URLSearchParams>();
-	const [filteredProducts, setFilteredProducts] = useState(products);
+	const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
+	const [currentCategory, setCurrentCategory] = useState<string>('all');
 
 	useEffect(() => {
-		// Parse URLSearchParams on the client side only
 		if (typeof window !== 'undefined') {
 			const paramsOnLoad = new URLSearchParams(window.location.search);
 			setSearchParams(paramsOnLoad);
+			setCurrentCategory(paramsOnLoad.get('category') ?? 'all');
 		}
 	}, []);
 
-	useEffect(() => {
-		const searchParams = new URLSearchParams(window.location.search);
-		const category = searchParams.get('category');
-		let result = products;
-		if (category) {
-			result = result.filter((p) => p.cat.includes(category));
-		}
-		setFilteredProducts(result);
-	}, [searchParams]);
+	const filteredProducts = useMemo(() => {
+		if (currentCategory === 'all') return products;
+		return products.filter((p) => p.cat.includes(currentCategory));
+	}, [products, currentCategory]);
 
-	const handleFilterChange = (key: string, value: string) => {
-		const newParams = new URLSearchParams(searchParams);
+	const handleFilterChange = useCallback((key: string, value: string) => {
+		const newParams = new URLSearchParams(searchParams?.toString() ?? '');
 		if (value && value !== 'all') {
 			newParams.set(key, value);
 		} else {
 			newParams.delete(key);
 		}
-		if (window.history.pushState) {
-			const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
-			const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + paramsString;
-			window.history.pushState({ path: newurl }, '', newurl);
-		}
+		
+		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
+		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
+		window.history.pushState({ path: newurl }, '', newurl);
+		
 		setSearchParams(newParams);
-	};
+		setCurrentCategory(value);
+	}, [searchParams]);
 
-	const currentCategory = searchParams?.get('category') ?? 'all';
+	const FilterButtons = useMemo(() => (
+		<div className="flex flex-wrap gap-4 justify-center items-center mb-4">
+			{productCategories.map(pc => (
+				<button
+					key={pc}
+					type="button"
+					value={pc}
+					onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleFilterChange('category', e.currentTarget.value)}
+					className={filterButtonCss + `${pc === currentCategory ? ' bg-gray-800 ring-2' : ' bg-primary'}`}
+				>
+					{catDictionary[pc]}
+				</button>
+			))}
+		</div>
+	), [productCategories, currentCategory, handleFilterChange]);
 
 	return (
 		<>
@@ -79,24 +89,12 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате Телеграм
 					{/* Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм */}
 					<div className={'grid justify-center p-2 m-1'}>
-						<a className={'m-1 ' + productButton} href={'tel:+79955702014'} target='_blank'>+7 (995) 570-20-14</a>
-						<a className={'m-1 ' + productButton} href={'https://telegram.me/aliasevpro'} target='_blank'>Сообщение Телеграм</a>
+						<a className={'m-1 ' + productButton} href={'tel:+79955702014'} target='_blank' rel="noopener noreferrer">+7 (995) 570-20-14</a>
+						<a className={'m-1 ' + productButton} href={'https://telegram.me/aliasevpro'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-4 justify-center items-center mb-4">
-				{productCategories.map(pc => (
-					<button
-						key={pc}
-						type="button"
-						value={pc}
-						onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleFilterChange('category', e.currentTarget.value)}
-						className={filterButtonCss + `${pc.includes(currentCategory) ? ' bg-gray-800 ring-2' : ' bg-primary'}`}
-					>
-						{catDictionary[pc]}
-					</button>
-				))}
-			</div>
+			{FilterButtons}
 			<div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
 				{filteredProducts.map(p => {
 					const isInCart = cart.some(cp => p.id === cp.id);
