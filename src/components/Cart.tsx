@@ -2,7 +2,7 @@ import CartIcon from "@/icons/commons/CartIcon";
 import CloseIcon from "@/icons/commons/CloseIcon";
 import { productButton } from "@/styles/globalStyles";
 import { countProductTotal, currencyFormat } from "@/utils/utils";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState, useEffect } from "react";
 import CartItem from "./CartItem";
 import { ShopContext } from "./ShopContext";
 
@@ -19,6 +19,11 @@ const Cart = () => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [isHasMessage, setIsHasMessage] = useState('')
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isClient, setIsClient] = useState(false);
+
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
 
 	const toggleCart = useCallback(() => setCartOpen((prev) => !prev), []);
 	const toggleForm = useCallback(() => setIsFormOpen((prev) => !prev), []);
@@ -77,7 +82,7 @@ const Cart = () => {
 		}
 	};
 
-	const CartButton = useMemo(() => cart.length >= 1 && (
+	const CartButton = useMemo(() => (
 		<button
 			onClick={toggleCart}
 			className="fixed z-30 w-10 h-10 bottom-4 right-4 transform bg-blue-500 text-white p-2 rounded-xl shadow-lg hover:bg-blue-600 focus:outline-none"
@@ -90,7 +95,7 @@ const Cart = () => {
 
 	return (
 		<>
-			{CartButton}
+			{isClient && cart.length >= 1 && CartButton}
 			<div
 				className={`fixed z-30 inset-x-0 bottom-0 transform flex flex-col justify-center transition-transform ${cartOpen ? "translate-y-0" : "translate-y-full"} bg-gray-700 shadow-lg rounded-t-xl p-4`}
 				aria-hidden={!cartOpen}
@@ -105,18 +110,35 @@ const Cart = () => {
 				</div>
 				<div className={'w-full max-w-xl p-2 px-4 mx-auto rounded-2xl bg-gray-600 text-center'}>
 					<div className={'text-2xl text-center'}>Заказ:</div>
-					{cart.length < 1 && <div>Выберите из каталога для заказа</div>}
-					{cart.length >= 1 &&
-						<div className='max-h-[70vh] overflow-auto'>
-							{cart.map(cartItem =>
-								<CartItem key={cartItem.id} cartItem={cartItem} handleUpdateQuantity={handleUpdateQuantity} removeFromCart={removeFromCart} />
-							)}
-							<div className='text-right'>Итого: {currencyFormat(cartTotal)}</div>
-						</div>}
+					{!isClient && <div>Загрузка...</div>}
+					{isClient && (
+						<>
+							{cart.length < 1 && <div>Выберите из каталога для заказа</div>}
+							{cart.length >= 1 &&
+								<div className='max-h-[70vh] overflow-auto'>
+									{cart.map(cartItem =>
+										<CartItem key={cartItem.id} cartItem={cartItem} handleUpdateQuantity={handleUpdateQuantity} removeFromCart={removeFromCart} />
+									)}
+									<div className='text-right'>Итого: {currencyFormat(cartTotal)}</div>
+								</div>
+							}
+						</>
+					)}
 				</div>
 				<div className='text-center'>
-					<button className={productButton + ' m-4'} onClick={toggleForm} disabled={cart.length < 1}>Оформить заказ</button>
-					<button className={productButton + ' m-4 hidden'} onClick={clearCart}>Очистить выбор</button>
+					<button 
+						className={productButton + ' m-4'} 
+						onClick={toggleForm} 
+						disabled={!isClient || cart.length < 1}
+					>
+						Оформить заказ
+					</button>
+					<button 
+						className={productButton + ' m-4 hidden'} 
+						onClick={clearCart}
+					>
+						Очистить выбор
+					</button>
 				</div>
 			</div>
 

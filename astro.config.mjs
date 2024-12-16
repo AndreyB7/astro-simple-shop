@@ -39,4 +39,18 @@ export default defineConfig({
 	build: {
 		inlineStylesheets: 'auto'
 	},
+	server: {
+		host: true, // Allow connections from all network interfaces
+		port: 4321
+	},
+	vite: {
+		server: {
+			watch: {
+				usePolling: true
+			},
+			hmr: {
+				protocol: 'ws'
+			}
+		}
+	}
 });

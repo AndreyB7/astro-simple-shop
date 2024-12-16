@@ -36,35 +36,39 @@ const initFormData: ContactFormData = {
 export const ShopContext = createContext<ShopContextType | null>(null);
 
 export const ShopProvider = ({ children }: Props) => {
-	const [cart, setCart] = useState<Cart>(() => {
-		const { data, error } = getFromLocalStorage<Cart>(localStorageKeys.cart);
-		if (error) {
-			console.warn('Failed to load cart from localStorage:', error.message);
-		}
-		return data || [];
-	});
+	const [cart, setCart] = useState<Cart>([]);
+	const [formData, setFormData] = useState<ContactFormData>(initFormData);
+	const [isInitialized, setIsInitialized] = useState(false);
 
-	const [formData, setFormData] = useState<ContactFormData>(() => {
-		const { data, error } = getFromLocalStorage<ContactFormData>(localStorageKeys.contacts);
-		if (error) {
-			console.warn('Failed to load contacts from localStorage:', error.message);
-		}
-		return data || initFormData;
-	});
-
+	// Load initial data from localStorage
 	useEffect(() => {
+		const { data: cartData } = getFromLocalStorage<Cart>(localStorageKeys.cart);
+		const { data: formData } = getFromLocalStorage<ContactFormData>(localStorageKeys.contacts);
+		
+		if (cartData) setCart(cartData);
+		if (formData) setFormData(formData);
+		setIsInitialized(true);
+	}, []);
+
+	// Save cart to localStorage
+	useEffect(() => {
+		if (!isInitialized) return;
+		
 		const error = saveToLocalStorage(localStorageKeys.cart, cart);
 		if (error) {
 			console.warn('Failed to save cart to localStorage:', error.message);
 		}
-	}, [cart]);
+	}, [cart, isInitialized]);
 
+	// Save form data to localStorage
 	useEffect(() => {
+		if (!isInitialized) return;
+		
 		const error = saveToLocalStorage(localStorageKeys.contacts, formData);
 		if (error) {
 			console.warn('Failed to save contacts to localStorage:', error.message);
 		}
-	}, [formData]);
+	}, [formData, isInitialized]);
 
 	const handleUpdateQuantity = useCallback((id: number, newQuantity: number) => {
 		if (newQuantity < 0) return;

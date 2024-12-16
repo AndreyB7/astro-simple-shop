@@ -121,16 +121,23 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 											<div className='text-xl font-bold'>{currencyFormat(p.price)}</div>
 										</div>)}
 									</div>
-									{isInCart ?
-										<button onClick={() => removeFromCart(p.id)}
-											className={productButtonSelected}>
-											{'Выбран'}
-										</button> :
-										<button onClick={() => addToCart(p)}
-											className={productButton}>
+									{isInCart ? (
+										<button 
+											onClick={() => removeFromCart(p.id)}
+											className={productButtonSelected}
+											suppressHydrationWarning
+										>
+											{typeof window === 'undefined' ? 'Выбрать' : 'Выбран'}
+										</button>
+									) : (
+										<button 
+											onClick={() => addToCart(p)}
+											className={productButton}
+											suppressHydrationWarning
+										>
 											{'Выбрать'}
 										</button>
-									}
+									)}
 								</div>
 							</div>
 						</div>
