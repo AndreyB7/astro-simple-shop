@@ -1,0 +1,24 @@
+---
+import { urls } from "../config/constants";
+import { productButton } from '../styles/globalStyles';
+---
+
+<section class="bg-gray-700 rounded-xl text-white text-opacity-80 mt-12 mb-12">
+  <div class="mx-auto max-w-7xl py-12 px-4 sm:py-16 sm:px-6 lg:px-8 lg:py-20">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-2xl leading-tight text-center font-semibold md:text-4xl md:leading-tight uppercase">
+        Установить плёнку можно здесь!
+      </h2>
+      <p class="mt-4 mb-8 text-xl">
+        Хамелеон детейлинг - профессиональная установка плёнки и детейлинг в Новосибирске
+      </p>
+      <a
+        href={urls.xameleon}
+		target="_blank"
+        class={productButton}
+      >
+        Перейти
+      </a>
+    </div>
+  </div>
+</section>

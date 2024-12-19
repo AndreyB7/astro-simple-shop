@@ -3,6 +3,7 @@ import type { Seo } from "@/config/landing.interface";
 import Layout from "@/layouts/Layout.astro";
 import Adventajes from "@/sections/Adventajes.astro";
 import Brands from "@/sections/Brands.astro";
+import CallToAction from "@/sections/CallToAction.astro";
 import Footer from "@/sections/Footer.astro";
 import Header from "@/sections/Header.astro";
 import Hero from "@/sections/Hero.astro";
@@ -23,6 +24,7 @@ const seo: Seo = {
     <main class="flex flex-col justify-center items-center">
         <div class="w-11/12 md:w-3/4">
             <Hero data={ data.heroData }/>
+			<CallToAction/>
             <Services data={ data.servicesData }/>
             <Video data={ data.video }/>
             <Adventajes data={ data.adventajesData }/>

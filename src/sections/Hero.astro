@@ -15,35 +15,33 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section id="hero-section" class="flex justify-center mt-40 md:mt-56 h-screen">
+<section id="hero-section" class="flex justify-center min-h-screen relative">
 	<Background />
-	<div class="md:w-1/2" data-aos="fade-up">
+	<div class="md:w-1/2 mt-40 md:mt-56 mb-12">
 		<h1
 			class="text-4xl leading-tight text-center font-semibold md:text-5xl md:leading-tight uppercase"
+			data-aos="fade-up"
 		>
 			{data.title}
-			<span class="text-primary whitespace-nowrap"> {data.highlightedTitle} </span>
+			<span class="text-primary whitespace-nowrap">
+				{data.highlightedTitle}
+			</span>
 		</h1>
-		<h2 class="mt-10 text-lg text-center opacity-80 md:text-2xl max-w-80 mx-auto">
+		<h2
+			class="mt-10 text-lg text-center opacity-80 md:text-2xl max-w-80 mx-auto"
+			data-aos="fade-up"
+		>
 			{data.subTitle}
 		</h2>
-		<div class="flex justify-evenly mt-10">
+		<div class="flex justify-evenly mt-10" data-aos="fade-up">
 			<Action as="a" type="button" href={urls.catalog}>
 				{data.primaryCta}
-			</Action>
-		</div>
-		<div class="flex flex-col justify-center items-center mt-5">
-			<div class="mt-5 mb-5 text-sm text-center opacity-80 md:text-sm">
-				{'Посетите сайт нашей детейлинг стидии Хамелеон детейлинг'}
-			</div>
-			<Action as="a" type="buttonSm" href={urls.xameleon}>
-				{'Перейти'}
 			</Action>
 		</div>
 		<div class="flex justify-center">
 			<Action
 				as="a"
-				class="flex justify-center items-center animate-bounce bg-gradient-to-b from-primary to-secondary text-white rounded-full w-14 h-14 mt-10 transition"
+				class="flex justify-center items-center animate-bounce bg-gradient-to-b from-primary to-secondary text-white rounded-full w-14 h-14 mt-20 transition"
 				href="#services-section"
 				title="arrow down icon"
 			>
@@ -51,7 +49,8 @@ const { data } = Astro.props;
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
-					stroke-width="1.5"]
+					stroke-width="1.5"
+					]
 					stroke="currentColor"
 					class="w-8 h-8"
 				>
