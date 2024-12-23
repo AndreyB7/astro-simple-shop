@@ -103,7 +103,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					type="button"
 					value={pc}
 					onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleFilterChange('category', e.currentTarget.value)}
-					className={filterButtonCss + `${pc === currentCategory ? ' bg-gray-800 ring-2' : ' bg-primary'}`}
+					className={filterButtonCss + `${pc === currentCategory ? ' bg-gray-800 ring-2 ring-green-500' : ' bg-primary'}`}
 				>
 					{catDictionary[pc]}
 				</button>
@@ -114,7 +114,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 	return (
 		<>
 			<div className="flex justify-center flex-col items-center">
-				<div className={'w-full max-w-xl p-2 px-4 rounded-2xl bg-gray-700 text-center my-4'}>
+				<div className={'w-full max-w-xl p-2 px-4 rounded-2xl bg-gray-700 text-center'}>
 					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате Телеграм
 					{/* Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм */}
 					<div className={'grid justify-center p-2 m-1'}>
