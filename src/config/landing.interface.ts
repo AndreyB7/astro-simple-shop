@@ -96,6 +96,13 @@ export interface Price {
 export interface Seo {
 	title: string;
 	description: string;
+	keywords?: string[];
+	og?: {
+        title: string,
+        description: string,
+        image: string,
+        type: string
+	};
 }
 
 export interface Meta {
@@ -109,14 +116,20 @@ export interface LdJson {
 	"@type": string;
 	name: string;
 	description: string;
-	url: string;
-	logo: string;
-	contactPoint: {
+	image?: string;
+	offers?: {
+		"@type": string;
+		price: number;
+		priceCurrency: string;
+	};
+	url?: string;
+	logo?: string;
+	contactPoint?: {
 		"@type": string;
 		email: string;
 		contactType: string;
 	};
-	sameAs: string[];
+	sameAs?: string[];
 }
 
 export type Icon =

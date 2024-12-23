@@ -3,7 +3,7 @@ const { videoId, title } = Astro.props;
 ---
 
 <div class="flex justify-center" data-aos="fade-up">
-    <div class="w-3/4">
+    <div class="w-full md:w-3/4">
         <iframe
                 class="w-full aspect-video rounded-xl border-0"
                 src={`https://www.youtube.com/embed/${videoId}`}

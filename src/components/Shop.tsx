@@ -1,11 +1,11 @@
 import type { ProductsData } from '@/config/products.type';
 import { productButton, productButtonSelected } from '@/styles/globalStyles';
-import { currencyFormat } from '@/utils/utils';
-import React, { useContext, useEffect, useState, useMemo, useCallback } from 'react';
+import { currencyFormat, getProductSlug } from '@/utils/utils';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Cart from './Cart';
 import { ShopContext } from './ShopContext';
 
-const catDictionary: {
+export const catDictionary: {
 	[key: string]: string;
 } = {
 	all: 'Все товары',
@@ -29,7 +29,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 	const context = useContext(ShopContext);
 
 	if (!context) {
-		return null; // or return a fallback UI if context is not available
+		return null;
 	}
 
 	const { cart, addToCart, removeFromCart } = context;
@@ -57,17 +57,17 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		} else {
 			newParams.delete(key);
 		}
-		
+
 		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
 		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
 		window.history.pushState({ path: newurl }, '', newurl);
-		
+
 		setSearchParams(newParams);
 		setCurrentCategory(value);
 	}, [searchParams]);
 
 	const FilterButtons = useMemo(() => (
-		<div className="flex flex-wrap gap-4 justify-center items-center mb-4">
+		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center mb-4">
 			{productCategories.map(pc => (
 				<button
 					key={pc}
@@ -105,7 +105,10 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 									className="rounded-t-2xl object-cover w-full h-full absolute" />
 							</div>
 							<div className='p-2 md:p-4 flex flex-col flex-grow justify-self-stretch w-full'>
-								<div className='text-lg font-semibold'>{p.name}</div>
+								<a href={`/products/${getProductSlug(p)}`}
+									title={p.name}>
+									<div className='text-lg font-semibold'>{p.name}</div>
+								</a>
 								{p.desc && <div className='opacity-50 text-sm'>{p.desc}</div>}
 								<div>
 									<hr />
@@ -122,7 +125,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 										</div>)}
 									</div>
 									{isInCart ? (
-										<button 
+										<button
 											onClick={() => removeFromCart(p.id)}
 											className={productButtonSelected}
 											suppressHydrationWarning
@@ -130,7 +133,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 											{typeof window === 'undefined' ? 'Выбрать' : 'Выбран'}
 										</button>
 									) : (
-										<button 
+										<button
 											onClick={() => addToCart(p)}
 											className={productButton}
 											suppressHydrationWarning
