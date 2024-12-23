@@ -3,6 +3,7 @@ import Action from "@/components/Action.astro";
 import { catDictionary } from "@/components/Shop";
 import { urls } from "@/config/constants";
 import type { Meta, Seo } from "@/config/landing.interface";
+import Footer from "@/sections/Footer.astro";
 import Header from "@/sections/Header.astro";
 import { getLandingData } from "@/services/data.service";
 import { currencyFormat, getProductSlug } from "@/utils/utils";
@@ -16,6 +17,7 @@ export async function getStaticPaths() {
 	}));
 }
 
+const { slug } = Astro.params;
 const { product } = Astro.props;
 
 const meta: Meta = {
@@ -114,12 +116,13 @@ const data = await getLandingData();
 						)
 					}
 					<div class="flex justify-evenly mt-4">
-						<Action as="a" type="button" href={urls.catalog}>
-							В Каталог
+						<Action as="a" type="button" href={`${urls.catalog}?category=${product.cat}#${slug}`}>
+							Выбрать в каталоге
 						</Action>
 					</div>
 				</div>
 			</div>
 		</div>
+		<Footer data={data.footerData} />
 	</main>
 </Layout>

@@ -9,7 +9,7 @@ import { getLandingData, getProductsData } from "../services/data.service";
 const data = await getLandingData();
 const products = await getProductsData();
 const productCategories = [
-	'all',
+	"all",
 	...new Set(
 		products
 			.reduce((cats: string[], p) => cats.concat(p.cat.split(",")), [])
@@ -33,7 +33,11 @@ const seo: Seo = {
 			/>
 		</div>
 		<section class="w-11/12 md:w-3/4">
-			<ShopWrapper client:load products={products} productCategories={productCategories}/>
+			<ShopWrapper
+				client:load
+				products={products}
+				productCategories={productCategories}
+			/>
 		</section>
 		<Footer data={data.footerData} />
 	</main>

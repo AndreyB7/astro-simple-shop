@@ -22,6 +22,31 @@ type Props = {
 	productCategories: string[];
 }
 
+const scrollToWithOffset = (id: string) => {
+	const element = document.getElementById(id);
+	const offset = 160; // Fixed header height
+	if (element) {
+		const elementPosition =
+			element.getBoundingClientRect().top;
+		const offsetPosition =
+			elementPosition + window.scrollY - offset;
+
+		window.scrollTo({
+			top: offsetPosition,
+			behavior: "smooth",
+		});
+	}
+};
+
+const scrollToHash = () => {
+	const hash = window.location.hash;
+	if (!hash) {
+		return;
+	}
+	const targetId = hash.substring(1);
+	scrollToWithOffset(targetId);
+};
+
 const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
 
 const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
@@ -44,6 +69,10 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 			setCurrentCategory(paramsOnLoad.get('category') ?? 'all');
 		}
 	}, []);
+
+	useEffect(() => {
+		scrollToHash(); // scroll to product if we follow from single product page
+	}, [currentCategory]);
 
 	const filteredProducts = useMemo(() => {
 		if (currentCategory === 'all') return products;
@@ -97,15 +126,16 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 			{FilterButtons}
 			<div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
 				{filteredProducts.map(p => {
+					const slug = getProductSlug(p);
 					const isInCart = cart.some(cp => p.id === cp.id);
 					return (
-						<div key={p.id} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
+						<div key={p.id} id={slug} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
 							<div className='w-full relative flex pb-[61%] h-0'>
 								<img src={`/products/${p.img}`} alt={p.name}
 									className="rounded-t-2xl object-cover w-full h-full absolute" />
 							</div>
 							<div className='p-2 md:p-4 flex flex-col flex-grow justify-self-stretch w-full'>
-								<a href={`/products/${getProductSlug(p)}`}
+								<a href={`/products/${slug}`}
 									title={p.name}>
 									<div className='text-lg font-semibold'>{p.name}</div>
 								</a>
