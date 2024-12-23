@@ -1,6 +1,6 @@
 ---
 import Action from "@/components/Action.astro";
-import { catDictionary } from "@/components/Shop";
+import { catDictionary as catDictionaryImport } from "@/components/Shop";
 import { urls } from "@/config/constants";
 import type { Meta, Seo } from "@/config/landing.interface";
 import Footer from "@/sections/Footer.astro";
@@ -13,12 +13,12 @@ import Layout from "../../layouts/Layout.astro";
 export async function getStaticPaths() {
 	return products.map((product) => ({
 		params: { slug: getProductSlug(product) },
-		props: { product },
+		props: { product, catDictionary: catDictionaryImport },
 	}));
 }
 
 const { slug } = Astro.params;
-const { product } = Astro.props;
+const { product, catDictionary } = Astro.props;
 
 const meta: Meta = {
 	lang: "en",
@@ -106,7 +106,7 @@ const data = await getLandingData();
 								<p class="text-sm text-gray-500">
 									Категория:{" "}
 									<span class="capitalize">
-										{catDictionary[product.cat]}
+										{product.cat.split(",").map((cat) => catDictionary[cat.trim()]).join(", ")}
 									</span>
 								</p>
 								<p class="text-sm text-gray-500">
