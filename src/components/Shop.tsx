@@ -47,7 +47,7 @@ const scrollToHash = () => {
 	scrollToWithOffset(targetId);
 };
 
-const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
+const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 hover:bg-gray-700 focus:ring-2 focus:ring-green-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
 
 const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
@@ -96,7 +96,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 	}, [searchParams]);
 
 	const FilterButtons = useMemo(() => (
-		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center mb-4">
+		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center my-8">
 			{productCategories.map(pc => (
 				<button
 					key={pc}
