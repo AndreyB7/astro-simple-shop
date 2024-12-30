@@ -38,7 +38,7 @@
 			},
 			{
 				"label": "Каталог",
-				"href": "/catalog"
+				"href": "/catalog/"
 			},
 			{
 				"label": "Контакты",
@@ -208,11 +208,11 @@
 			},
 			{
 				"label": "Каталог",
-				"href": "/catalog"
+				"href": "/catalog/"
 			},
 			{
 				"label": "Частые вопросы",
-				"href": "/faq"
+				"href": "/faq/"
 			}
 		],
 		"socials": [

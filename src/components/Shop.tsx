@@ -135,7 +135,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 									className="rounded-t-2xl object-cover w-full h-full absolute" />
 							</div>
 							<div className='p-2 md:p-4 flex flex-col flex-grow justify-self-stretch w-full'>
-								<a href={`/products/${slug}`}
+								<a href={`/products/${slug}/`}
 									title={p.name}>
 									<div className='text-lg font-semibold'>{p.name}</div>
 								</a>
