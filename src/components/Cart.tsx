@@ -2,7 +2,7 @@ import CartIcon from "@/icons/commons/CartIcon";
 import CloseIcon from "@/icons/commons/CloseIcon";
 import { productButton } from "@/styles/globalStyles";
 import { countProductTotal, currencyFormat } from "@/utils/utils";
-import React, { useCallback, useContext, useMemo, useState, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import CartItem from "./CartItem";
 import { ShopContext } from "./ShopContext";
 
@@ -34,6 +34,7 @@ const Cart = () => {
 
 	const cartItems = useMemo(() => cart.map(cartItem => ({
 		name: cartItem.name,
+		art: cartItem.art,
 		quantity: cartItem.quantity,
 		productTotal: countProductTotal(cartItem)
 	})), [cart]);
