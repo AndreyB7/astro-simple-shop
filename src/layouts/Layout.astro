@@ -7,7 +7,7 @@ interface Props {
 	seo: Seo;
 }
 
-const url = new URL(Astro.url.pathname, Astro.site);
+const url = new URL(Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/', Astro.site);
 
 const { meta, seo } = Astro.props;
 
@@ -26,6 +26,19 @@ import "aos/dist/aos.css";
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<title>{seo.title}</title>
 		<meta name="description" content={seo.description} />
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={url.toString()} />
+		<meta property="og:title" content={seo.title} />
+		<meta property="og:description" content={seo.description} />
+		{seo.image && <meta property="og:image" content={new URL(seo.image, Astro.site).toString()} />}
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={url.toString()} />
+		<meta property="twitter:title" content={seo.title} />
+		<meta property="twitter:description" content={seo.description} />
+		{seo.image && <meta property="twitter:image" content={new URL(seo.image, Astro.site).toString()} />}
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
 			rel="icon"
@@ -58,6 +71,7 @@ import "aos/dist/aos.css";
 				"ym",
 			);
 
+			// eslint-disable-next-line no-undef
 			ym(99150938, "init", {
 				clickmap: true,
 				trackLinks: true,

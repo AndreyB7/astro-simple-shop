@@ -1,0 +1,62 @@
+---
+import Action from "@/components/Action.astro";
+import { urls } from "@/config/constants";
+import type { Seo } from "@/config/landing.interface";
+import Layout from "@/layouts/Layout.astro";
+import Footer from "@/sections/Footer.astro";
+import Header from "@/sections/Header.astro";
+import HeroSingle from "@/sections/HeroSingle.astro";
+import { getLandingData } from "@/services/data.service";
+
+interface Props {
+  frontmatter: {
+    title: string;
+    image: string;
+	description: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+
+const data = await getLandingData();
+const seo: Seo = {
+  title: frontmatter.title,
+  description: frontmatter.description,
+  image: frontmatter.image
+};
+---
+
+<Layout meta={data.meta} seo={seo}>
+  <Header data={data.headerData} />
+  <main class="flex flex-col justify-center items-center">
+    <div class="w-11/12 md:w-3/4">
+      <HeroSingle title={frontmatter.title} image={frontmatter.image} />
+      <div class="prose max-w-3xl mx-auto">
+        <slot />
+      </div>
+    </div>
+	<div class="flex justify-evenly mt-4">
+		<Action as="a" type="button" href={urls.catalog}>
+			Выбрать в Каталоге
+		</Action>
+	</div>
+    <Footer data={data.footerData} />
+  </main>
+</Layout>
+
+<style>
+  :global(.prose h2),
+  :global(.prose h3) {
+    @apply font-semibold leading-tight md:leading-tight mt-8 mb-4;
+  }
+  :global(.prose h2) {
+	@apply text-2xl md:text-4xl;
+  }
+  :global(.prose h2:first-child) {
+	@apply mt-0;
+  }
+
+  :global(.prose p) {
+	@apply opacity-80;
+  }
+</style>

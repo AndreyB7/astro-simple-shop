@@ -97,12 +97,7 @@ export interface Seo {
 	title: string;
 	description: string;
 	keywords?: string[];
-	og?: {
-        title: string,
-        description: string,
-        image: string,
-        type: string
-	};
+	image?: string,
 }
 
 export interface Meta {

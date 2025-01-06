@@ -3,8 +3,8 @@ import Action from "@/components/Action.astro";
 import Card from "@/components/Card.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
 import type { PricingData } from "@/config/landing.interface";
-import { ASSET_PREFIX, urls } from "../config/constants";
 import Icon from "../components/Icon.astro";
+import { ASSET_PREFIX, urls } from "../config/constants";
 
 interface Props {
   data: PricingData;
@@ -21,7 +21,7 @@ const { data } = Astro.props;
         <div class="mb-4">
             Перед оформлением заказа ознакомьтесь с ответами на часто задаваемые вопросы
         </div>
-        <Action as="a" type="button" href="/faq">
+        <Action as="a" type="button" href={urls.faq}>
             Частые вопросы
         </Action>
     </div>
