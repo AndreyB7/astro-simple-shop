@@ -46,12 +46,7 @@ const seo: Seo = {
 		"защитная пленка",
 		"пленка для авто",
 	],
-	og: {
-		title: product.name,
-		description: product.desc,
-		image: `/products/${product.img}`,
-		type: "product",
-	},
+	image: `/products/${product.img}`,
 };
 
 const data = await getLandingData();
