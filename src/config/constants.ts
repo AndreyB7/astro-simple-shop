@@ -1,8 +1,13 @@
 export const ASSET_PREFIX = "/";
 
 export const urls = {
-  home: '/',
-  catalog: '/catalog/',
-  xameleon: 'https://xameleon-detailing.ru/',
-  faq: '/faq/'
+	home: '/',
+	catalog: '/catalog/',
+	xameleon: 'https://xameleon-detailing.ru/',
+	faq: '/faq/',
+	pages: {
+		vinil: '/vinil-car-color-films/',
+		poliuretan: '/poliuretan-car-protection-films/',
+		tinting: '/window-tinting-films/',
+	}
 }

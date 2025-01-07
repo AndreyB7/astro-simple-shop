@@ -2,66 +2,83 @@
 import Action from "@/components/Action.astro";
 import Card from "@/components/Card.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
-import type { PricingData } from "@/config/landing.interface";
+import { productTypesData } from "@/data/productTypesData";
 import Icon from "../components/Icon.astro";
 import { ASSET_PREFIX, urls } from "../config/constants";
 
-interface Props {
-  data: PricingData;
-}
-
-const { data } = Astro.props;
+const data = productTypesData;
 ---
 
 <section id="products-section" class="scroll-m-32 mt-48">
-    <SectionTitle>
-      { data.title }
-    </SectionTitle>
-    <div class="md:w-1/2 m-auto mt-10 text-lg text-center opacity-80 md:text-2xl" data-aos="fade-up">
-        <div class="mb-4">
-            Перед оформлением заказа ознакомьтесь с ответами на часто задаваемые вопросы
-        </div>
-        <Action as="a" type="button" href={urls.faq}>
-            Частые вопросы
-        </Action>
+  <SectionTitle>
+    {data.title}
+  </SectionTitle>
+  <div
+    class="md:w-1/2 m-auto mt-10 text-lg text-center opacity-80 md:text-2xl"
+    data-aos="fade-up"
+  >
+    <div class="mb-4">
+      Перед оформлением заказа ознакомьтесь с ответами на часто задаваемые
+      вопросы
     </div>
-    <div
-            class="my-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-5 place-items-center"
+    <Action as="a" type="button" href={urls.faq}> Частые вопросы </Action>
+  </div>
+  <div
+    class="my-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-5 place-items-center"
+  >
+    {
+      data.tiers.map((tier) => (
+        <Card>
+          <img
+            src={ASSET_PREFIX + tier.img}
+            alt={tier.img}
+            class="w-full relative rounded-t-2xl object-cover"
+          />
+          <header class="flex flex-col justify-center gap-y-3 px-1">
+            <h3 class="text-4xl text-center font-semibold">{tier.title}</h3>
+            <div class="text-xl text-center opacity-90">{tier.description}</div>
+          </header>
+          <hr />
+          <section class="flex justify-start px-4">
+            <ul class="flex flex-col gap-y-1 text-sm">
+              {tier.features.map((feature) => (
+                <li class="flex flex-row px-7 gap-x-1">
+                  <span>
+                    <Icon class="w-4 h-4 text-primary" icon="CheckIcon" />
+                  </span>
+                  <div>{feature}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
+          {tier.links.length > 0 && (
+            <section class="flex justify-center px-4 pb-4">
+              <ul class="flex flex-col gap-y-1 text-sm">
+                {tier.links.map((link) => (
+                  <li class="flex flex-row px-7 gap-x-1">
+                    <Action as="a" href={link.url} class="text-primary">
+                      <span class="flex items-center">
+                        {link.label}
+                        <Icon class="w-4 h-4" icon="ArrowRightIcon" />
+                      </span>
+                    </Action>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </Card>
+      ))
+    }
+  </div>
+  <div class="flex justify-center px-4 pb-4">
+    <Action
+      as="a"
+      class="bg-primary text-white w-72"
+      type="button"
+      href={urls.catalog}
     >
-      {
-        data.tiers.map((tier) => (
-                <Card>
-                    <img src={ ASSET_PREFIX + tier.img } alt={ tier.img }
-                         class="w-full relative rounded-t-2xl object-cover"/>
-                    <header class="flex flex-col justify-center gap-y-3 px-1">
-                        <h3 class="text-4xl text-center font-semibold">{ tier.title }</h3>
-                        <div class="text-xl text-center opacity-90">{ tier.description }</div>
-                    </header>
-                    <hr/>
-                    <section class="flex justify-start px-4 pb-10">
-                        <ul class="flex flex-col gap-y-1 text-sm">
-                          { tier.features.map((feature) => (
-                                  <li class="flex flex-row px-7 gap-x-1">
-                            <span>
-                              <Icon class="w-4 h-4 text-primary" icon="CheckIcon"/>
-                            </span>
-                                      <div>{ feature }</div>
-                                  </li>
-                          )) }
-                        </ul>
-                    </section>
-                </Card>
-        ))
-      }
-    </div>
-    <div class="flex justify-center px-4 pb-4">
-        <Action
-                as="a"
-                class="bg-primary text-white w-72"
-                type="button"
-                href={ urls.catalog }
-        >
-            заказать из каталога
-        </Action>
-    </div>
+      заказать из каталога
+    </Action>
+  </div>
 </section>

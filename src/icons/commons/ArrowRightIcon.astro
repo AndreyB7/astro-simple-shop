@@ -1,0 +1,14 @@
+---
+interface Props {
+  class?: string;
+}
+
+const baseClass = "h-10 md:h-12 md:w-12 w-10";
+
+const { class: className = baseClass } = Astro.props;
+---
+
+<svg class={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="5" y1="12" x2="19" y2="12"></line>
+  <polyline points="12 5 19 12 12 19"></polyline>
+</svg>

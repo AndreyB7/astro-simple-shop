@@ -1,10 +1,15 @@
 ---
 import type { Icon } from "@/config/landing.interface";
+import ArrowRightIcon from "@/icons/commons/ArrowRightIcon.astro";
 import CheckIcon from "@/icons/commons/CheckIcon.astro";
 import ConfigIcon from "@/icons/commons/ConfigIcon.astro";
 import DevIcon from "@/icons/commons/DevIcon.astro";
 import FileIcon from "@/icons/commons/FileIcon.astro";
+import FilmIcon from "@/icons/commons/FilmIcon.astro";
+import LiquidIcon from "@/icons/commons/LiquidIcon.astro";
 import PlanetIcon from "@/icons/commons/PlanetIcon.astro";
+import TonerIcon from "@/icons/commons/TonerIcon.astro";
+import ToolsIcon from "@/icons/commons/ToolsIcon.astro";
 import FacebookIcon from "@/icons/socials/FacebookIcon.astro";
 import GithubIcon from "@/icons/socials/GithubIcon.astro";
 import InstagramIcon from "@/icons/socials/InstagramIcon.astro";
@@ -15,11 +20,6 @@ import SolidIcon from "@/icons/techs/SolidIcon.astro";
 import SvelteIcon from "@/icons/techs/SvelteIcon.astro";
 import VercelIcon from "@/icons/techs/VercelIcon.astro";
 import VueIcon from "@/icons/techs/VueIcon.astro";
-import FilmIcon from "@/icons/commons/FilmIcon.astro";
-import TonerIcon from "@/icons/commons/TonerIcon.astro";
-import ToolsIcon from "@/icons/commons/ToolsIcon.astro";
-import LiquidIcon from "@/icons/commons/LiquidIcon.astro";
-
 
 interface Props {
   icon: Icon;
@@ -49,6 +49,8 @@ const icons = [
   TonerIcon,
   ToolsIcon,
   LiquidIcon,
+
+  ArrowRightIcon
 ];
 
 let figures: Record<string, (_props: Record<string, unknown>) => unknown> = {};

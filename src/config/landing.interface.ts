@@ -5,7 +5,6 @@ export interface LandingPageData {
 	servicesData: ServicesData;
 	adventajesData: AdventajesData;
 	brandsData: BrandsData;
-	pricingData: PricingData;
 	footerData: FooterData;
 	video: VideoData;
 }
@@ -76,7 +75,7 @@ export interface BrandsData {
 	description: string;
 }
 
-export interface PricingData {
+export interface ProductTypesData {
 	title: string;
 	tiers: Tier[];
 }
@@ -86,6 +85,10 @@ export interface Tier {
 	title: string;
 	description: string;
 	features: string[];
+	links: {
+		url: string;
+		label: string;
+	}[];
 }
 
 export interface Price {
@@ -142,4 +145,5 @@ export type Icon =
 	| "SolidIcon"
 	| "VueIcon"
 	| "VercelIcon"
-	| "NetlifyIcon";
+	| "NetlifyIcon"
+	| "ArrowRightIcon";
