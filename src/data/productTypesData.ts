@@ -31,10 +31,20 @@ export const productTypesData: ProductTypesData = {
 				"Плёнка не желтеет, не отклеивается",
 				"Широкая цветовая палитра"
 			],
-			links: [{
-				url: urls.pages.vinil,
-				label: "Подробнее о виниле"
-			}]
+			links: [
+				{
+					url: urls.pages.vinil,
+					label: "Подробнее о виниле"
+				},
+				{
+					url: urls.pages.pet,
+					label: "Подробнее о гибриде"
+				},
+				{
+					url: urls.pages.tph,
+					label: "Подробнее о TPH пленке"
+				}
+			]
 		},
 		{
 			img: "products/TPU_Photochrome_Black_190_Mic.webp",
