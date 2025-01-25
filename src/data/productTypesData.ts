@@ -47,7 +47,10 @@ export const productTypesData: ProductTypesData = {
 				"Эффект самовосстановления царапин",
 				"Срок службы 5 лет"
 			],
-			links: []
+			links: [{
+				url: urls.pages.photochrome,
+				label: "Подробнее о фотохроме"
+			}]
 		},
 		{
 			img: "products/Black_tint_film_35.webp",
@@ -88,7 +91,10 @@ export const productTypesData: ProductTypesData = {
 				"Оптимальный расход",
 				"Безопасные для вас"
 			],
-			links: []
+			links: [{
+				url: urls.pages.liquid,
+				label: "Подробнее о жидкостях"
+			}]
 		}
 	]
 };

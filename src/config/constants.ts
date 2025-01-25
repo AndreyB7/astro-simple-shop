@@ -9,5 +9,7 @@ export const urls = {
 		vinil: '/vinil-car-color-films/',
 		poliuretan: '/poliuretan-car-protection-films/',
 		tinting: '/window-tinting-films/',
+		liquid: '/protection-film-installation-liquid/',
+		photochrome: '/photochrome-car-optic-protection-film/',
 	}
 }
