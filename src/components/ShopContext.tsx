@@ -11,6 +11,7 @@ export type ContactFormData = {
 	phone: string;
 	email: string;
 	address: string;
+	city: string;
 }
 
 type Cart = Product[];
@@ -31,6 +32,7 @@ const initFormData: ContactFormData = {
 	phone: "",
 	email: "",
 	address: "",
+	city: "",
 };
 
 export const ShopContext = createContext<ShopContextType | null>(null);

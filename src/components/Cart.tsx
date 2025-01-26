@@ -179,9 +179,18 @@ const Cart = () => {
 								className="w-full p-3 border border-gray-300 rounded-lg"
 								required
 							/>
+							<input
+								type="text"
+								name="city"
+								placeholder="Город доставки"
+								value={formData.city}
+								onChange={handleInputChange}
+								className="w-full p-3 border border-gray-300 rounded-lg"
+								required
+							/>
 							<textarea
 								name="address"
-								placeholder="Почтовый адрес доставки"
+								placeholder="Почтовый адрес"
 								value={formData.address}
 								onChange={handleInputChange}
 								className="w-full p-3 border border-gray-300 rounded-lg"
