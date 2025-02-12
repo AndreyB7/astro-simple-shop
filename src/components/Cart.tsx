@@ -2,6 +2,7 @@ import CartIcon from "@/icons/commons/CartIcon";
 import CloseIcon from "@/icons/commons/CloseIcon";
 import { productButton } from "@/styles/globalStyles";
 import { countProductTotal, currencyFormat } from "@/utils/utils";
+import trackYandexEvent from "@/yandexMetrica";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import CartItem from "./CartItem";
 import { ShopContext } from "./ShopContext";
@@ -70,6 +71,7 @@ const Cart = () => {
 			const responseMessage = responseData.message || "Заяквка отправлена, мы свяжемся с вами в ближайшее время!";
 			setIsHasMessage(responseMessage);
 			setIsFormOpen(false);
+			trackYandexEvent("zakaz");
 			clearCart();
 		} catch (error) {
 			console.error("Error submitting the form:", error);

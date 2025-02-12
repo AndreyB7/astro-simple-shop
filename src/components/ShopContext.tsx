@@ -1,5 +1,6 @@
 import type { Product } from '@/config/products.type';
 import { getFromLocalStorage, localStorageKeys, removeFromLocalStorage, saveToLocalStorage } from '@/utils/localStorageUtils';
+import trackYandexEvent from '@/yandexMetrica';
 import React, { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 type Props = {
@@ -97,6 +98,7 @@ export const ShopProvider = ({ children }: Props) => {
 			}
 			return [...prevCart, { ...product, quantity: product.roll ?? 1 }];
 		});
+		trackYandexEvent("add_to_cart");
 	}, []);
 
 	const removeFromCart = useCallback((productId: number) => {
