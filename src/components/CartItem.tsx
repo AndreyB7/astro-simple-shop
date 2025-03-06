@@ -27,7 +27,10 @@ const CartItem = ({ cartItem, handleUpdateQuantity, removeFromCart }: Props) => 
 			>
 				+
 			</button>
-			<div className="m-1 w-6">{cartItem.quantity}</div>
+			<div className="m-1 w-6 leading-none">
+				<div>{cartItem.quantity}</div>
+				{cartItem.type === 'film' ? <div>{'мп'}</div> : ''}
+			</div>
 			<button
 				onClick={() => handleUpdateQuantity(cartItem.id, cartItem.quantity && cartItem.quantity >= 2 ? cartItem.quantity - 1 : 1)}
 				className="p-1 w-6 h-6 bg-gray-500 hover:bg-gray-300 rounded leading-none"
