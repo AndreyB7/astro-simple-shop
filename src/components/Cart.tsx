@@ -134,7 +134,7 @@ const Cart = () => {
 						onClick={toggleForm} 
 						disabled={!isClient || cart.length < 1}
 					>
-						Оформить заказ
+						оставить заявку
 					</button>
 					<button 
 						className={productButton + ' m-4 hidden'} 
@@ -150,7 +150,7 @@ const Cart = () => {
 				<div className="fixed z-40 inset-0 bg-black bg-opacity-50 flex justify-center items-center">
 					<div className="bg-gray-700 w-full max-w-lg p-6 rounded-lg shadow-lg text-center">
 						<h2 className="text-xl font-semibold text-center mb-4">
-							Отправка заказа
+							Отправка заявки
 						</h2>
 						<p className='text-sm'>Введите ваши контактные данные, мы свяжемся с вами в ближайщее время для уточнения стоимости доставки и пришлем ссылку для оплаты заказа</p>
 						<form onSubmit={handleSubmit} className="space-y-2 text-gray-600">
@@ -231,7 +231,7 @@ const Cart = () => {
 							</button>
 						</div>
 						<h2 className="text-xl font-semibold text-center mb-4">
-							Отправка заказа
+							Отправка заявки
 						</h2>
 						<div>{isHasMessage}</div>
 					</div>
