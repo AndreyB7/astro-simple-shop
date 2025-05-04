@@ -13,6 +13,7 @@ export type ContactFormData = {
 	email: string;
 	address: string;
 	city: string;
+	agreeToOffer: boolean;
 }
 
 type Cart = Product[];
@@ -34,6 +35,7 @@ const initFormData: ContactFormData = {
 	email: "",
 	address: "",
 	city: "",
+	agreeToOffer: false,
 };
 
 export const ShopContext = createContext<ShopContextType | null>(null);
@@ -114,8 +116,9 @@ export const ShopProvider = ({ children }: Props) => {
 	}, []);
 
 	const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const { name, value } = e.target;
-		setFormData(prev => ({ ...prev, [name]: value }));
+		const { name, value, type, checked } = e.target as HTMLInputElement;
+		const inputValue = type === 'checkbox' ? checked : value;
+		setFormData(prev => ({ ...prev, [name]: inputValue }));
 	}, []);
 
 	const contextValue = useMemo(() => ({

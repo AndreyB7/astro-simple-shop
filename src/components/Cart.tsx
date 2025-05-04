@@ -54,7 +54,7 @@ const Cart = () => {
 		};
 
 		try {
-			const apiUrl = 'https://aliasevpro.ru'; // import.meta.env.API_URL || 'http://localhost:8000';
+			const apiUrl = 'https://aliasevpro.ru/'; // import.meta.env.API_URL || 'http://localhost:8000';
 			const response = await fetch(`${apiUrl}/orderHandler.php`, {
 				method: "POST",
 				headers: {
@@ -130,7 +130,7 @@ const Cart = () => {
 				</div>
 				<div className='text-center pt-2 w-11/12 md:w-3/4 m-auto'>
 					Просим прнимать во внимание что оставляя заявку Вы подтвержадаете что согласны с
-				<a href="/public-offer" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
+				<a href="/public-offer/" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
 					публичной офертой
 				</a> нашего интернет магазина.
 				</div>
@@ -163,7 +163,7 @@ const Cart = () => {
 							<input
 								type="text"
 								name="name"
-								placeholder="Имя"
+								placeholder="ФИО"
 								value={formData.name}
 								onChange={handleInputChange}
 								className="w-full p-3 border border-gray-300 rounded-lg"
@@ -201,10 +201,24 @@ const Cart = () => {
 								placeholder="Почтовый адрес"
 								value={formData.address}
 								onChange={handleInputChange}
-								className="w-full p-3 border border-gray-300 rounded-lg"
+								className="w-full p-3 border border-gray-300 rounded-lg block"
 								rows={4}
 								required
 							></textarea>
+							<div className="flex items-center mt-4 text-gray-300">
+								<input
+									type="checkbox"
+									name="agreeToOffer"
+									checked={formData.agreeToOffer}
+									onChange={handleInputChange}
+									required
+									className="w-4 h-4 mr-2 cursor-pointer"
+								/>
+								<label htmlFor="agreeToOffer" className="text-sm">
+									Я согласен с <a href="/public-offer/" className="text-blue-500" target="_blank" rel="noopener noreferrer">публичной офертой</a>
+								</label>
+							</div>
+							
 							<div className="flex justify-between">
 								<button
 									type="button"
