@@ -1,8 +1,8 @@
 ---
 import Action from "@/components/Action.astro";
 import type { FooterData } from "@/config/landing.interface";
-import Logo from "../components/Logo.astro";
 import { marked } from 'marked';
+import Logo from "../components/Logo.astro";
 
 interface Props {
   data: FooterData;
@@ -16,9 +16,9 @@ const { data } = Astro.props;
         class="w-11/12 scroll-m-32 flex flex-col justify-center text-center gap-y-8 pt-8 mt-24 bg-black"
 >
     <div class="text-sm text-primary md:w-1/2 m-auto mt-2">
-        Стоимость на сайте указана без учета доставки!
+        Доставка по России от одного рулона бесплатно!
         <br/>Доставка осуществляется транспортной компанией со склада в Новосибирске.
-        <br/>Мы рассчитаем стоимость и сроки доставки при оформления заказа.
+        <br/>Мы рассчитаем финальную стоимость и сроки доставки при оформления заказа.
     </div>
     <section class="flex justify-center">
         <Action as="a" href="/" title={ data.logo }>

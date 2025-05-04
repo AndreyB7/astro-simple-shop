@@ -137,6 +137,10 @@
 			{
 				"label": "Частые вопросы",
 				"href": "/faq/"
+			},
+			{
+				"label": "Публичная оферта",
+				"href": "/public-offer"
 			}
 		],
 		"socials": [

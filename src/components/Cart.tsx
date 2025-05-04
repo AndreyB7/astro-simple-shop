@@ -128,6 +128,12 @@ const Cart = () => {
 						</>
 					)}
 				</div>
+				<div className='text-center pt-2 w-11/12 md:w-3/4 m-auto'>
+					Просим прнимать во внимание что оставляя заявку Вы подтвержадаете что согласны с
+				<a href="/public-offer" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
+					публичной офертой
+				</a> нашего интернет магазина.
+				</div>
 				<div className='text-center'>
 					<button 
 						className={productButton + ' m-4'} 
@@ -152,7 +158,7 @@ const Cart = () => {
 						<h2 className="text-xl font-semibold text-center mb-4">
 							Отправка заявки
 						</h2>
-						<p className='text-sm'>Введите ваши контактные данные, мы свяжемся с вами в ближайщее время для уточнения стоимости доставки и пришлем ссылку для оплаты заказа</p>
+						<p className='text-sm'>Введите ваши контактные данные, мы свяжемся с вами в ближайщее время для уточнения деталей заказа и пришлем ссылку для оплаты</p>
 						<form onSubmit={handleSubmit} className="space-y-2 text-gray-600">
 							<input
 								type="text"
