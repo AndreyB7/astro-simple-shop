@@ -1387,6 +1387,20 @@
         "img": "Athermal_tint_film_75.webp"
     },
     {
+        "id": 1033,
+        "type": "film",
+        "art": "-",
+        "cat": "tone, optic",
+        "name": "TPU glass protect",
+        "storage": 30,
+        "roll": 30,
+        "priceroll": 300000,
+        "price": 10000,
+        "desc": "Защитная пленка для стекол, толщина 200 микрон, ролик 1,22м - 30мп. Износостойкая с защитой от царапин, без искажений.",
+        "slug": "tpu-glass-protect-200",
+        "img": "TPU_Photochrome_Black_190_Mic.webp"
+    },
+    {
         "id": 104,
         "type": "single",
         "art": "-",
