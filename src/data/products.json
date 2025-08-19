@@ -1219,20 +1219,6 @@
         "img": "TPU_Photochrome_Black_190_Mic.webp"
     },
     {
-        "id": 92,
-        "type": "film",
-        "art": "-",
-        "cat": "photochrome, optic",
-        "name": "Light black Photochromic TPU",
-        "storage": 30,
-        "roll": 15,
-        "priceroll": 45000,
-        "price": 3000,
-        "desc": "Полиуретан фотохром для оптики, самозатемняющийся, ролик 0,6м - 15мп",
-        "slug": "light-black-photochromic-tpu",
-        "img": "TPU_Photochrome_Light_Black_190_Mic.webp"
-    },
-    {
         "id": 93,
         "type": "film",
         "art": "-",
