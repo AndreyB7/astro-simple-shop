@@ -1,0 +1,14 @@
+---
+const { videoId, title } = Astro.props;
+---
+
+<div class="flex justify-center" data-aos="fade-up">
+  <div class="w-full md:w-3/4">
+    <iframe
+      class="w-full aspect-video rounded-xl border-0"
+      src={`https://rutube.ru/play/embed/${videoId}`}
+      style="border: none;"
+      title={title}
+      allow="clipboard-write; autoplay; fullscreen"></iframe>
+  </div>
+</div>

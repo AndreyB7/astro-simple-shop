@@ -11,113 +11,114 @@ import products from "../../data/products.json";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	return products.map((product) => ({
-		params: { slug: getProductSlug(product) },
-		props: { product, catDictionary: catDictionaryImport },
-	}));
+  return products.map((product) => ({
+    params: { slug: getProductSlug(product) },
+    props: { product, catDictionary: catDictionaryImport },
+  }));
 }
 
-const { slug } = Astro.params;
+// const { slug } = Astro.params;
 const { product, catDictionary } = Astro.props;
 
 const meta: Meta = {
-	lang: "en",
-	charset: "utf-8",
-	ldJson: {
-		"@context": "https://schema.org/",
-		"@type": "Product",
-		name: product.name,
-		description: product.desc,
-		image: `/products/${product.img}`,
-		offers: {
-			"@type": "Offer",
-			price: product.price,
-			priceCurrency: "RUB",
-		},
-	},
+  lang: "ru",
+  charset: "utf-8",
+  ldJson: {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.name,
+    description: product.desc,
+    image: `/products/${product.img}`,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "RUB",
+    },
+  },
 };
 
 const seo: Seo = {
-	title: `${product.name} - AliasevPRO`,
-	description: product.desc,
-	keywords: [
-		`${product.type}`,
-		`${product.cat}`,
-		"защитная пленка",
-		"пленка для авто",
-	],
-	image: `/products/${product.img}`,
+  title: `${product.name} - AliasevPRO`,
+  description: product.desc,
+  keywords: [
+    `${product.type}`,
+    `${product.cat}`,
+    "защитная пленка",
+    "пленка для авто",
+  ],
+  image: `/products/${product.img}`,
 };
 
 const data = await getLandingData();
 ---
 
 <Layout meta={meta} seo={seo}>
-	<Header data={data.headerData} />
-	<main class="container mx-auto px-4 py-8">
-		<div class="max-w-4xl mx-auto mt-48 md:mt-24">
-			<div class="grid md:grid-cols-2 gap-8">
-				<div class="relative">
-					<img
-						src={`/products/${product.img}`}
-						alt={product.name}
-						class="w-full h-auto rounded-lg shadow-lg"
-					/>
-				</div>
-				<div>
-					<h1 class="text-3xl font-bold mb-4">{product.name}</h1>
-					<p class="text-gray-600 mb-4">{product.desc}</p>
-					<div class="border-t border-gray-200 py-4">
-						<div class="flex justify-between items-center mb-2">
-							<span class="font-semibold">Цена за единицу:</span>
-							<span class="text-xl font-bold"
-								>{currencyFormat(product.price)}</span
-							>
-						</div>
-						{
-							product.roll && (
-								<>
-									<div class="flex justify-between items-center mb-2">
-										<span class="font-semibold">
-											Размер ролика:
-										</span>
-										<span>{product.roll} мп</span>
-									</div>
-									<div class="flex justify-between items-center mb-4">
-										<span class="font-semibold">
-											Цена за ролик:
-										</span>
-										<span class="text-xl font-bold">
-											{currencyFormat(product.priceroll)}
-										</span>
-									</div>
-								</>
-							)
-						}
-					</div>
-					{
-						product.cat && (
-							<div class="mt-4">
-								<p class="text-sm text-gray-500">
-									Категория:{" "}
-									<span class="capitalize">
-										{product.cat.split(",").map((cat) => catDictionary[cat.trim()]).join(", ")}
-									</span>
-								</p>
-								<p class="text-sm text-gray-500">
-									Артикул: {product.art}
-								</p>
-							</div>
-						)
-					}
-					<div class="flex justify-evenly mt-4">
-						<Action as="a" type="button" href={`${urls.catalog}#${slug}`}>
-							Выбрать в каталоге
-						</Action>
-					</div>
-				</div>
-			</div>
-		</div>
-		<Footer data={data.footerData} />
-	</main>
+  <Header data={data.headerData} />
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto mt-48 md:mt-24">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="relative">
+          <img
+            src={`/products/${product.img}`}
+            alt={product.name}
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold mb-4">{product.name}</h1>
+          <p class="text-gray-600 mb-4">{product.desc}</p>
+          <div class="border-t border-gray-200 py-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-semibold">Цена за единицу:</span>
+              <span class="text-xl font-bold"
+                >{currencyFormat(product.price)}</span
+              >
+            </div>
+            {
+              product.roll && (
+                <>
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold">Размер ролика:</span>
+                    <span>{product.roll} мп</span>
+                  </div>
+                  <div class="flex justify-between items-center mb-4">
+                    <span class="font-semibold">Цена за ролик:</span>
+                    <span class="text-xl font-bold">
+                      {currencyFormat(product.priceroll)}
+                    </span>
+                  </div>
+                </>
+              )
+            }
+          </div>
+          {
+            product.cat && (
+              <div class="mt-4">
+                <p class="text-sm text-gray-500">
+                  Категория:{" "}
+                  <span class="capitalize">
+                    {product.cat
+                      .split(",")
+                      .map((cat) => catDictionary[cat.trim()])
+                      .join(", ")}
+                  </span>
+                </p>
+                <p class="text-sm text-gray-500">Артикул: {product.art}</p>
+              </div>
+            )
+          }
+          <div class="flex justify-evenly mt-4">
+            <Action
+              as="a"
+              type="button"
+              href={`${urls.catalog}`}
+            >
+              Выбрать в каталоге
+            </Action>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Footer data={data.footerData} />
+  </main>
 </Layout>

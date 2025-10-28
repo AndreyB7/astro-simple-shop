@@ -10,27 +10,31 @@ import Hero from "@/sections/Hero.astro";
 import Pricing from "@/sections/Pricing.astro";
 import Services from "@/sections/Services.astro";
 import { getLandingData } from "@/services/data.service";
-import Video from "../sections/Video.astro";
+import VideoFrame from "../sections/VideoFrame.astro";
 
 const data = await getLandingData();
 const seo: Seo = {
-	title: "Aliasev PRO Автомобильные Защитные Пленки",
-	description: "Личный выбор защитных и декоративных пленок и сопутствующих товаров от оклейщика c опытом 20 лет. Заказывайте, проверено!",
-}
+  title: "Aliasev PRO Автомобильные Защитные Пленки",
+  description:
+    "Личный выбор защитных и декоративных пленок и сопутствующих товаров от оклейщика c опытом 20 лет. Заказывайте, проверено!",
+};
 ---
 
-<Layout meta={ data.meta } seo={seo}>
-    <Header data={ data.headerData }/>
-    <main class="flex flex-col justify-center items-center">
-        <div class="w-11/12 md:w-3/4">
-            <Hero data={ data.heroData }/>
-			<CallToAction/>
-            <Services data={ data.servicesData }/>
-            <Video data={ data.video }/>
-            <Adventajes data={ data.adventajesData }/>
-            <Brands data={ data.brandsData }/>
-            <Pricing />
-        </div>
-        <Footer data={ data.footerData }/>
-    </main>
+<Layout meta={data.meta} seo={seo}>
+  <Header data={data.headerData} />
+  <main class="flex flex-col justify-center items-center">
+    <div class="w-11/12 md:w-3/4">
+      <Hero data={data.heroData} />
+      <section class="bg-primary p-4 text-white center-items rounded-b-lg">
+        <p class="text-center m-0">С 1 сентября мы работаем по новому адресу:<br/> г.Новосибирск, ул.Кропоткина 479</p>
+      </section>
+      <CallToAction />
+      <Services data={data.servicesData} />
+      <VideoFrame data={data.video} />
+      <Adventajes data={data.adventajesData} />
+      <Brands data={data.brandsData} />
+      <Pricing />
+    </div>
+    <Footer data={data.footerData} />
+  </main>
 </Layout>

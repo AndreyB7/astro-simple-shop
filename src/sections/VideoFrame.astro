@@ -1,7 +1,7 @@
 ---
 import SectionTitle from "@/components/SectionTitle.astro";
+import Video from "../components/Video.astro";
 import type { VideoData } from "../config/landing.interface";
-import YouTubeVideo from "../components/YouTubeVideo.astro";
 
 interface Props {
   data: VideoData;
@@ -14,5 +14,5 @@ const { data } = Astro.props;
     <SectionTitle>
       { data.title }
     </SectionTitle>
-    <YouTubeVideo title={ data.title } videoId={ data.videoId }/>
+    <Video title={ data.title } videoId={ data.videoId }/>
 </section>
