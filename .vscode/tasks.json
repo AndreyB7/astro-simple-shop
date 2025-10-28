@@ -46,7 +46,7 @@
                 "--include='phplib/**'",
                 "--exclude='*'",
                 "./",
-                "keepcalm@ruvip43.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
+                "keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
             ],
             "problemMatcher": [],
             "group": {
@@ -79,7 +79,7 @@
                 "-e",
                 "ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
                 "dist/",
-                "keepcalm@ruvip43.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
+                "keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
             ],
             "problemMatcher": [],
             "group": {
