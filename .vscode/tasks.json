@@ -1,116 +1,155 @@
 {
 	"version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Start PHP Dev Server",
-            "type": "shell",
-            "command": "APP_ENV=development php -S localhost:8000 -t .",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "new",
-                "close": false
-            }
-        },
-        {
-            "label": "Stop PHP Dev Server",
-            "type": "shell",
-            "command": "lsof -ti:8000 | xargs kill",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "silent",
-                "panel": "shared",
-                "close": true
-            }
-        },
-        {
-            "label": "Deploy Backend to Remote (Production)",
-            "type": "shell",
-            "command": "rsync",
-            "args": [
-                "-azP",
-                "--delete",
-                "--stats",
-                "--human-readable",
-                "--exclude='.DS_Store'",
-                "--exclude='node_modules'",
-                "--exclude='.git'",
-                "--exclude='*.log'",
-                "--exclude='config.development.php'",
-                "-e",
-                "ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
-                "--include=orderHandler.php",
-                "--include=config.production.php",
-                "--include=.env",
-                "--include=phplib/",
-                "--include='phplib/**'",
-                "--exclude='*'",
-                "./",
-                "keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new",
-                "close": false,
-                "showReuseMessage": false
-            },
-            "dependsOn": ["Validate Backend Files"]
-        },
-        {
-            "label": "Deploy Frontend to Remote",
-            "type": "shell",
-            "command": "rsync",
-            "args": [
-                "-azP",
-                "--delete-after",
-                "--stats",
-                "--human-readable",
-                "--exclude='.DS_Store'",
-                "--exclude='*.map'",
-                "--exclude='orderHandler.php'",
-                "--exclude='config.production.php'",
-                "--exclude='.env'",
-                "--exclude='phplib/'",
-                "-e",
-                "ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
-                "dist/",
-                "keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always",
-                "panel": "new",
-                "close": false,
-                "showReuseMessage": false
-            },
-        },
-        {
-            "label": "Validate Backend Files",
-            "type": "shell",
-            "command": "test -f orderHandler.php && test -f config.production.php && test -f .env && test -d phplib",
-            "presentation": {
-                "reveal": "silent",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Deploy All (Production)",
-            "dependsOrder": "sequence",
-            "dependsOn": ["Deploy Backend to Remote (Production)", "Deploy Frontend to Remote"],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
-    ]
+	"tasks": [
+		{
+			"label": "Start PHP Dev Server",
+			"type": "shell",
+			"command": "APP_ENV=development php -S localhost:8000 -t .",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"close": false
+			}
+		},
+		{
+			"label": "Stop PHP Dev Server",
+			"type": "shell",
+			"command": "lsof -ti:8000 | xargs kill",
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared",
+				"close": true
+			}
+		},
+		{
+			"label": "Deploy Backend to Remote (Production)",
+			"type": "shell",
+			"command": "rsync",
+			"args": [
+				"-azP",
+				"--delete",
+				"--stats",
+				"--human-readable",
+				"--exclude='.DS_Store'",
+				"--exclude='node_modules'",
+				"--exclude='.git'",
+				"--exclude='*.log'",
+				"--exclude='config.development.php'",
+				"-e",
+				"ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
+				"--include=orderHandler.php",
+				"--include=config.production.php",
+				"--include=.env",
+				"--include=phplib/",
+				"--include='phplib/**'",
+				"--exclude='*'",
+				"./",
+				"keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"close": false,
+				"showReuseMessage": false
+			},
+			"dependsOn": [
+				"Validate Backend Files"
+			]
+		},
+		{
+			"label": "Deploy PHP to Remote (Production)",
+			"type": "shell",
+			"command": "rsync",
+			"args": [
+				"-azP",
+				"--stats",
+				"--human-readable",
+				"-e",
+				"ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
+				"--include=listOrders.php",
+				"--include=orderHandler.php",
+				"--include=paymentHandler.php",
+				"--include=functions.php",
+				"--exclude='*'",
+				"./",
+				"keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"close": false,
+				"showReuseMessage": false
+			},
+		},
+		{
+			"label": "Deploy Frontend to Remote",
+			"type": "shell",
+			"command": "rsync",
+			"args": [
+				"-azP",
+				"--delete-after",
+				"--stats",
+				"--human-readable",
+				"--exclude='.DS_Store'",
+				"--exclude='*.map'",
+				"--exclude='orderHandler.php'",
+				"--exclude='paymentHandler.php'",
+				"--exclude='listOrders.php'",
+				"--exclude='functions.php'",
+				"--exclude='database.sqlite'",
+				"--exclude='config.production.php'",
+				"--exclude='.env'",
+				"--exclude='phplib/'",
+				"-e",
+				"ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
+				"dist/",
+				"keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "new",
+				"close": false,
+				"showReuseMessage": false
+			},
+		},
+		{
+			"label": "Validate Backend Files",
+			"type": "shell",
+			"command": "test -f orderHandler.php && test -f config.production.php && test -f .env && test -d phplib",
+			"presentation": {
+				"reveal": "silent",
+				"panel": "shared"
+			}
+		},
+		{
+			"label": "Deploy All (Production)",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Deploy Backend to Remote (Production)",
+				"Deploy Frontend to Remote"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
 }

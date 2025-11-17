@@ -43,19 +43,11 @@ function generateToken($data, $password)
  * Process payment through Tinkoff payment API
  * 
  * @param array $paymentData Custom payment data (optional)
- * @param bool $redirect Whether to redirect to payment page (default: false)
- * @param bool $returnJson Whether to return JSON response (default: true)
  * @return mixed Array with response data or JSON string
  */
-function processPayment($paymentData = [], $redirect = false, $returnJson = true)
+function processPayment($paymentData = [])
 {
-	if ($returnJson) {
-		header('Content-Type: application/json');
-	}
 
-	// Load the .env file
-	require_once 'functions.php';
-	loadEnv(__DIR__ . '/.env');
 	$url = $_ENV['PAYMENT_INIT_URL'];
 	$terminalKey = $_ENV['PAYMENT_KEY'];
 	$terminalPass = $_ENV['PAYMENT_PASS'];
@@ -105,21 +97,6 @@ function processPayment($paymentData = [], $redirect = false, $returnJson = true
 	$curlResult = json_decode($response, true);
 	curl_close($curl);
 
-	// Подключаем базу SQLite (файл создастся, если его нет)
-	$db = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	// Создаем таблицу, если не существует
-	$db->exec("
-        CREATE TABLE IF NOT EXISTS payments (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            order_id INTEGER NOT NULL,
-            url TEXT NOT NULL
-        )
-    ");
-	// Create index in a separate statement
-	$db->exec("CREATE INDEX IF NOT EXISTS idx_order_id ON payments(order_id)");
-
 	$responseBody = [];
 	// Check for errors
 	if (curl_errno($curl)) {
@@ -129,72 +106,9 @@ function processPayment($paymentData = [], $redirect = false, $returnJson = true
 			'response' => $curlResult,
 			'data' => $data,
 		];
-
-		// Save payment info to database
-		$stmt = $db->prepare("INSERT INTO payments (order_id, url) VALUES (:order_id, :url)");
-		$stmt->execute([
-			':order_id' => intval($data['OrderId']),
-			':url' => isset($curlResult['PaymentURL']) ? $curlResult['PaymentURL'] : '',
-		]);
 	} else {
 		$responseBody = ['error' => $curlResult];
 	}
 
-	// Handle redirect if requested and payment URL exists
-	if ($redirect && isset($curlResult['PaymentURL'])) {
-		header("Location: " . $curlResult['PaymentURL']);
-		exit;
-	}
-
-	// Return response
-	if ($returnJson) {
-		echo json_encode($responseBody);
-		return null;
-	} else {
-		return $responseBody;
-	}
-}
-
-// Execute payment processing if this file is called directly
-if (basename($_SERVER['SCRIPT_FILENAME']) === basename(__FILE__)) {
-	// Default payment data
-	$data = [
-		"Amount" => 140000,
-		"OrderId" => 21101,
-		"Description" => "Подарочная карта на 1001 рублей",
-		"DATA" => [
-			"Phone" => "+71234567890",
-			"Email" => "a@test.com"
-		],
-		"Receipt" => [
-			"Email" => "a@test.ru",
-			"Phone" => "+79031234567",
-			"Taxation" => "usn_income",
-			"Items" => [
-				[
-					"Name" => "Наименование товара 1",
-					"Price" => 10000,
-					"Quantity" => 1,
-					"Amount" => 10000,
-					"Tax" => "none",
-					"Ean13" => "303130323930303030630333435"
-				],
-				[
-					"Name" => "Наименование товара 2",
-					"Price" => 20000,
-					"Quantity" => 2,
-					"Amount" => 40000,
-					"Tax" => "none"
-				],
-				[
-					"Name" => "Наименование товара 3",
-					"Price" => 30000,
-					"Quantity" => 3,
-					"Amount" => 90000,
-					"Tax" => "none"
-				]
-			]
-		]
-	];
-	processPayment($data, false, true);
+	return $responseBody;
 }

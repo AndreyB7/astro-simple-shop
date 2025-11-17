@@ -18,7 +18,8 @@ const Cart = () => {
 
 	const [cartOpen, setCartOpen] = useState<boolean>(false);
 	const [isFormOpen, setIsFormOpen] = useState(false);
-	const [isHasMessage, setIsHasMessage] = useState('')
+	const [isHasMessage, setIsHasMessage] = useState('');
+	const [paymentUrl, setPaymentUrl] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isClient, setIsClient] = useState(false);
 
@@ -43,8 +44,9 @@ const Cart = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (isSubmitting) return;
-		
+
 		setIsSubmitting(true);
+		setPaymentUrl('');
 		setIsHasMessage('');
 
 		const data = {
@@ -70,6 +72,7 @@ const Cart = () => {
 			const responseData = await response.json();
 			const responseMessage = responseData.message || "Заяквка отправлена, мы свяжемся с вами в ближайшее время!";
 			setIsHasMessage(responseMessage);
+			setPaymentUrl(responseData.paymentUrl);
 			setIsFormOpen(false);
 			trackYandexEvent("zakaz");
 			clearCart();
@@ -130,20 +133,20 @@ const Cart = () => {
 				</div>
 				<div className='text-center pt-2 w-11/12 md:w-3/4 m-auto'>
 					Просим прнимать во внимание что оставляя заявку Вы подтвержадаете что согласны с
-				<a href="/public-offer/" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
-					публичной офертой
-				</a> нашего интернет магазина.
+					<a href="/public-offer/" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
+						публичной офертой
+					</a> нашего интернет магазина.
 				</div>
 				<div className='text-center'>
-					<button 
-						className={productButton + ' m-4'} 
-						onClick={toggleForm} 
+					<button
+						className={productButton + ' m-4'}
+						onClick={toggleForm}
 						disabled={!isClient || cart.length < 1}
 					>
 						оставить заявку
 					</button>
-					<button 
-						className={productButton + ' m-4 hidden'} 
+					<button
+						className={productButton + ' m-4 hidden'}
 						onClick={clearCart}
 					>
 						Очистить выбор
@@ -218,7 +221,7 @@ const Cart = () => {
 									Я согласен с <a href="/public-offer/" className="text-blue-500" target="_blank" rel="noopener noreferrer">публичной офертой</a>
 								</label>
 							</div>
-							
+
 							<div className="flex justify-between">
 								<button
 									type="button"
@@ -254,6 +257,17 @@ const Cart = () => {
 							Отправка заявки
 						</h2>
 						<div>{isHasMessage}</div>
+						{paymentUrl && (
+							<>
+								<div className="mt-4">Оплатить заказ можно по кнопке ниже.</div>
+								<button
+									onClick={() => window.open(paymentUrl, '_blank')}
+									className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">
+									ОПЛАТИТЬ ЗАКАЗ
+								</button>
+								<div className="mt-4">Подтверждение заказа и платежная ссыка направлены на указанную вами почту.</div>
+							</>
+						)}
 					</div>
 				</div>
 			)

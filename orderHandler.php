@@ -46,7 +46,7 @@ try {
 	// Database connection
 	$db = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
+
 	// Создаем таблицу orders, если не существует
 	$db->exec("
 	        CREATE TABLE IF NOT EXISTS orders (
@@ -112,25 +112,29 @@ try {
             "Items" => array_map(function ($item) {
                 return [
                     "Name" => $item['name'],
-                    "Price" => $item['productTotal'] * 100,
+                    "Price" => ($item['productTotal'] / $item['quantity']) * 100,
                     "Quantity" => $item['quantity'],
-                    "Amount" => $item['productTotal'] * $item['quantity'] * 100,
+                    "Amount" => $item['productTotal'] * 100,
                     "Tax" => "none"
                 ];
             }, $cart)
         ]
     ];
-    $paymentResponse = processPayment($paymentData, false, false);
+
+    $paymentResponse = processPayment($paymentData);
 
     $paymentUrl = null;
-    if (isset($paymentResponse['response']['PaymentURL'])) {
-        $paymentUrl = $paymentResponse['response']['PaymentURL'];
-        // Update order with payment URL
-        $stmt = $db->prepare("UPDATE orders SET payment_url = :payment_url WHERE id = :order_id");
-        $stmt->execute([':payment_url' => $paymentUrl, ':order_id' => $orderId]);
-    } else {
-        throw new Exception("Не удалось создать ссылку на оплату.");
+	$paymentError = null;
+
+    if (isset($paymentResponse['error'])) {
+		$paymentError = $paymentResponse['error'];
     }
+
+	if (isset($paymentResponse['response']['PaymentURL'])) {
+		$paymentUrl = $paymentResponse['response']['PaymentURL'];
+		$stmt = $db->prepare("UPDATE orders SET payment_url = :payment_url WHERE id = :order_id");
+		$stmt->execute([':payment_url' => $paymentUrl, ':order_id' => $orderId]);
+	}
 
     // Prepare email content for admin
     $adminEmailBody = "<h1>Новый заказ №$orderId от $name" . ($config['environment'] === 'development' ? ' (DEV)' : '') . "</h1>";
@@ -221,7 +225,7 @@ try {
     $customerMail->setFrom($config['smtp']['from_email'], $config['smtp']['from_name']);
     $customerMail->addAddress($formData['email'], $name);
     $customerMail->isHTML(true);
-    $customerMail->Subject = "Ваш заказ №$orderId в магазине APRO";
+    $customerMail->Subject = "Ваш заказ №$orderId в магазине AliasevPRO";
     $customerMail->CharSet = 'UTF-8';
     $customerMail->Body = $customerEmailBody;
     $customerMail->send();
@@ -231,8 +235,9 @@ try {
         "success" => true,
         "message" => "Заявка отправлена, благодарим за заказ, $name, мы свяжемся с вами в ближайшее время!",
         "paymentUrl" => $paymentUrl,
+		"paymentError" => $paymentError,
         "environment" => $config['environment']
-    ]);
+    ]); 
 } catch (Exception $e) {
     $errorMessage = $config['debug']
         ? "Error: " . $e->getMessage()
