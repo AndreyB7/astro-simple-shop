@@ -210,21 +210,6 @@
 		"quantity": 0
 	},
 	{
-		"id": 106,
-		"type": "film",
-		"art": "-",
-		"cat": "poliuretan",
-		"name": "TPU Glass Shield 160 mic NEW",
-		"storage": 30,
-		"roll": 15,
-		"priceroll": 75000,
-		"price": 5000,
-		"desc": "Прозрачный полиуретан для защиты лоб стекла, ролик 1,52м - 15мп. Hard top coat.",
-		"slug": "tpu-glass-shield-160-mic-new",
-		"img": "TPU_Glass_Shield_160_mic_NEW.webp",
-		"quantity": 0
-	},
-	{
 		"id": 2,
 		"type": "film",
 		"art": "-",

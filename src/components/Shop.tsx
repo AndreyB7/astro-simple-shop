@@ -118,7 +118,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате Телеграм
 					{/* Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм */}
 					<div className={'grid justify-center p-2 m-1'}>
-						<a className={'m-1 ' + productButton} href={'tel:+79955702014'} target='_blank' rel="noopener noreferrer">+7 (995) 570-20-14</a>
+						<a className={'m-1 ' + productButton} href={'tel:+79931909116'} target='_blank' rel="noopener noreferrer">+7 (993) 190-91-16</a>
 						<a className={'m-1 ' + productButton} href={'https://telegram.me/aliasevproppf'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
 					</div>
 				</div>

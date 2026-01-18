@@ -24,46 +24,6 @@
 			}
 		},
 		{
-			"label": "Deploy Backend to Remote (Production)",
-			"type": "shell",
-			"command": "rsync",
-			"args": [
-				"-azP",
-				"--delete",
-				"--stats",
-				"--human-readable",
-				"--exclude='.DS_Store'",
-				"--exclude='node_modules'",
-				"--exclude='.git'",
-				"--exclude='*.log'",
-				"--exclude='config.development.php'",
-				"-e",
-				"ssh -p 8228 -i /Users/andreyb/.ssh/hostiman2 -o ConnectTimeout=10",
-				"--include=orderHandler.php",
-				"--include=config.production.php",
-				"--include=.env",
-				"--include=phplib/",
-				"--include='phplib/**'",
-				"--exclude='*'",
-				"./",
-				"keepcalm@ruvip66.hostiman.ru:/var/www/keepcalm/data/www/aliasevpro.ru/"
-			],
-			"problemMatcher": [],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"presentation": {
-				"reveal": "always",
-				"panel": "new",
-				"close": false,
-				"showReuseMessage": false
-			},
-			"dependsOn": [
-				"Validate Backend Files"
-			]
-		},
-		{
 			"label": "Deploy PHP to Remote (Production)",
 			"type": "shell",
 			"command": "rsync",
@@ -129,27 +89,5 @@
 				"showReuseMessage": false
 			},
 		},
-		{
-			"label": "Validate Backend Files",
-			"type": "shell",
-			"command": "test -f orderHandler.php && test -f config.production.php && test -f .env && test -d phplib",
-			"presentation": {
-				"reveal": "silent",
-				"panel": "shared"
-			}
-		},
-		{
-			"label": "Deploy All (Production)",
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"Deploy Backend to Remote (Production)",
-				"Deploy Frontend to Remote"
-			],
-			"problemMatcher": [],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		}
 	]
 }
