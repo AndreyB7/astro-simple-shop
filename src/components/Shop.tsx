@@ -61,6 +61,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
 	const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null);
 	const [currentCategory, setCurrentCategory] = useState<string>('all');
+	const [searchQuery, setSearchQuery] = useState<string>('');
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
@@ -75,9 +76,20 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 	}, [currentCategory]);
 
 	const filteredProducts = useMemo(() => {
-		if (currentCategory === 'all') return products;
-		return products.filter((p) => p.cat.includes(currentCategory));
-	}, [products, currentCategory]);
+		let result = products;
+		if (currentCategory !== 'all') {
+			result = result.filter((p) => p.cat.includes(currentCategory));
+		}
+		if (searchQuery) {
+			const query = searchQuery.toLowerCase();
+			result = result.filter((p) =>
+				p.name.toLowerCase().includes(query) ||
+				p.desc?.toLowerCase().includes(query) ||
+				p.art?.toLowerCase().includes(query)
+			);
+		}
+		return result;
+	}, [products, currentCategory, searchQuery]);
 
 	const handleFilterChange = useCallback((key: string, value: string) => {
 		const newParams = new URLSearchParams(searchParams?.toString() ?? '');
@@ -93,10 +105,21 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 
 		setSearchParams(newParams);
 		setCurrentCategory(value);
+		if (value !== 'all') {
+			setSearchQuery('');
+		}
 	}, [searchParams]);
 
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setSearchQuery(value);
+		if (value && currentCategory !== 'all') {
+			handleFilterChange('category', 'all');
+		}
+	};
+
 	const FilterButtons = useMemo(() => (
-		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center my-8">
+		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center my-4">
 			{productCategories.map(pc => (
 				<button
 					key={pc}
@@ -111,6 +134,35 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		</div>
 	), [productCategories, currentCategory, handleFilterChange]);
 
+	const SearchBar = (
+		<div className="w-full max-w-xl mx-auto mt-2 mb-0 px-4 py-2 overflow-hidden">
+			<div className="relative group">
+				<div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+					<svg className="w-5 h-5 text-gray-400 group-focus-within:text-green-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+					</svg>
+				</div>
+				<input
+					type="text"
+					placeholder="Поиск по названию, описанию или артикулу..."
+					value={searchQuery}
+					onChange={handleSearchChange}
+					className="block w-full pl-12 pr-10 py-4 border border-gray-700 rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all sm:text-base text-sm shadow-xl"
+				/>
+				{searchQuery && (
+					<button
+						onClick={() => setSearchQuery('')}
+						className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors"
+					>
+						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+						</svg>
+					</button>
+				)}
+			</div>
+		</div>
+	);
+
 	return (
 		<>
 			<div className="flex justify-center flex-col items-center">
@@ -123,6 +175,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					</div>
 				</div>
 			</div>
+			{SearchBar}
 			{FilterButtons}
 			<div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
 				{filteredProducts.map(p => {
@@ -140,6 +193,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 									<div className='text-lg font-semibold'>{p.name}</div>
 								</a>
 								{p.desc && <div className='opacity-50 text-sm'>{p.desc}</div>}
+								{p.art && <div className='opacity-50 text-sm'>Арт. {p.art}</div>}
 								<div>
 									<hr />
 								</div>
