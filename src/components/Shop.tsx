@@ -13,6 +13,7 @@ export const catDictionary: {
 	color: 'Цветные',
 	photochrome: 'Фотохром',
 	optic: 'Для оптики',
+	hybrid: 'Гибрид',
 	tone: 'Тонировка',
 	liquid: 'Жидкости',
 }

@@ -115,7 +115,7 @@
         "id": 9,
         "type": "film",
         "art": "1008",
-        "cat": "optic",
+        "cat": "hybrid",
         "name": "Hybrid Black Gloss TPH",
         "storage": 75,
         "roll": 18,
@@ -1216,20 +1216,6 @@
         "desc": "Гибрид для тонировки оптики, ролик 0,6м - 15мп",
         "slug": "headlights-tph-light-grey",
         "img": "TPH_Light_Grey_160_Mic.webp"
-    },
-    {
-        "id": 97,
-        "type": "film",
-        "art": "10131",
-        "cat": "optic",
-        "name": "Headlights TPH Deep Black",
-        "storage": 15,
-        "roll": 15,
-        "priceroll": 18000,
-        "price": 1200,
-        "desc": "Гибрид для тонировки оптики, ролик 0,6м - 15мп",
-        "slug": "headlights-tph-deep-black",
-        "img": "TPH_Deep_Black_160_Mic.webp"
     },
     {
         "id": 98,
