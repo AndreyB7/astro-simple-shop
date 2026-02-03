@@ -1,4 +1,4 @@
-import type { ProductsData } from '@/config/products.type';
+import type { Product } from '@/config/products.type';
 import { productButton, productButtonSelected } from '@/styles/globalStyles';
 import { currencyFormat, getProductSlug } from '@/utils/utils';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -19,7 +19,7 @@ export const catDictionary: {
 }
 
 type Props = {
-	products: ProductsData;
+	products: Product[];
 	productCategories: string[];
 }
 

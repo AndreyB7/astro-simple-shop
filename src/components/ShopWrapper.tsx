@@ -1,11 +1,11 @@
-import type { ProductsData } from "@/config/products.type";
+import type { Product } from "@/config/products.type";
 import React, { memo } from "react";
 import Shop from "./Shop";
-import ShopErrorBoundary from "./ShopErrorBoundary";
 import { ShopProvider } from "./ShopContext";
+import ShopErrorBoundary from "./ShopErrorBoundary";
 
 type Props = {
-	products: ProductsData;
+	products: Product[];
 	productCategories: string[];
 }
 

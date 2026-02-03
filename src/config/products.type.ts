@@ -1,5 +1,3 @@
-export type ProductsData = Product[];
-
 export type Product = {
 	id: number,
 	type: string,
