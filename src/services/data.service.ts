@@ -7,11 +7,19 @@ export const getLandingData = async (): Promise<LandingPageData> => {
   return data;
 };
 
+let productsPromise: Promise<Product[]> | null = null;
+
 export const getProductsData = async (): Promise<Product[]> => {
-	const url = 'https://script.google.com/macros/s/AKfycbwwCPZx_NDHDlnREuZI-k5OIQJh1YPZOzFML6TehjWIn-ZMfzYoAWdoFmA1vcPFdMd0mA/exec';
-	const response = await fetch(url);
-	const products: Product[] = convertTabularData(await response.json());
-	return products;
+	if (productsPromise) return productsPromise;
+
+	productsPromise = (async () => {
+		const url =
+			"https://script.google.com/macros/s/AKfycbwwCPZx_NDHDlnREuZI-k5OIQJh1YPZOzFML6TehjWIn-ZMfzYoAWdoFmA1vcPFdMd0mA/exec";
+		const response = await fetch(url);
+		return convertTabularData(await response.json());
+	})();
+
+	return productsPromise;
 };
 
 // convert tabular data to array of objects

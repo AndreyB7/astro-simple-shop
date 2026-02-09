@@ -5,20 +5,19 @@ import { urls } from "@/config/constants";
 import type { Meta, Seo } from "@/config/landing.interface";
 import Footer from "@/sections/Footer.astro";
 import Header from "@/sections/Header.astro";
-import { getLandingData } from "@/services/data.service";
-import { currencyFormat, getProductSlug } from "@/utils/utils";
-import products from "../../data/products.json";
+import { getLandingData, getProductsData } from "@/services/data.service";
+import { currencyFormat } from "@/utils/utils";
 import Layout from "../../layouts/Layout.astro";
 
+const { product, catDictionary } = Astro.props;
+
 export async function getStaticPaths() {
+  const products = await getProductsData();
   return products.map((product) => ({
-    params: { slug: getProductSlug(product) },
+    params: { slug: product.slug },
     props: { product, catDictionary: catDictionaryImport },
   }));
 }
-
-// const { slug } = Astro.params;
-const { product, catDictionary } = Astro.props;
 
 const meta: Meta = {
   lang: "ru",
