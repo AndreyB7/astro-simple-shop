@@ -69,6 +69,10 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 			const paramsOnLoad = new URLSearchParams(window.location.search);
 			setSearchParams(paramsOnLoad);
 			setCurrentCategory(paramsOnLoad.get('category') ?? 'all');
+			const searchFromUrl = paramsOnLoad.get('search');
+			if (searchFromUrl) {
+				setSearchQuery(searchFromUrl);
+			}
 		}
 	}, []);
 
@@ -100,23 +104,38 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 			newParams.delete(key);
 		}
 
+		if (value !== 'all') {
+			setSearchQuery('');
+			newParams.delete('search');
+		}
+
 		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
 		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
 		window.history.pushState({ path: newurl }, '', newurl);
 
 		setSearchParams(newParams);
 		setCurrentCategory(value);
-		if (value !== 'all') {
-			setSearchQuery('');
-		}
 	}, [searchParams]);
 
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setSearchQuery(value);
-		if (value && currentCategory !== 'all') {
-			handleFilterChange('category', 'all');
+		
+		const newParams = new URLSearchParams(window.location.search);
+		if (value) {
+			newParams.set('search', value);
+			if (currentCategory !== 'all') {
+				newParams.delete('category');
+				setCurrentCategory('all');
+			}
+		} else {
+			newParams.delete('search');
 		}
+		
+		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
+		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
+		window.history.replaceState({ path: newurl }, '', newurl);
+		setSearchParams(newParams);
 	};
 
 	const FilterButtons = useMemo(() => (
@@ -152,7 +171,15 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 				/>
 				{searchQuery && (
 					<button
-						onClick={() => setSearchQuery('')}
+						onClick={() => {
+							setSearchQuery('');
+							const newParams = new URLSearchParams(window.location.search);
+							newParams.delete('search');
+							const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
+							const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
+							window.history.replaceState({ path: newurl }, '', newurl);
+							setSearchParams(newParams);
+						}}
 						className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors"
 					>
 						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
