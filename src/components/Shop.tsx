@@ -1,6 +1,6 @@
 import type { Product } from '@/config/products.type';
 import { productButton, productButtonSelected } from '@/styles/globalStyles';
-import { currencyFormat, getProductSlug } from '@/utils/utils';
+import { currencyFormat } from '@/utils/utils';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import Cart from './Cart';
 import { ShopContext } from './ShopContext';
@@ -22,31 +22,6 @@ type Props = {
 	products: Product[];
 	productCategories: string[];
 }
-
-const scrollToWithOffset = (id: string) => {
-	const element = document.getElementById(id);
-	const offset = 160; // Fixed header height
-	if (element) {
-		const elementPosition =
-			element.getBoundingClientRect().top;
-		const offsetPosition =
-			elementPosition + window.scrollY - offset;
-
-		window.scrollTo({
-			top: offsetPosition,
-			behavior: "smooth",
-		});
-	}
-};
-
-const scrollToHash = () => {
-	const hash = window.location.hash;
-	if (!hash) {
-		return;
-	}
-	const targetId = hash.substring(1);
-	scrollToWithOffset(targetId);
-};
 
 const filterButtonCss = 'px-4 py-2 rounded-md text-sm font-medium transition-all ease-in-out duration-200 hover:bg-gray-700 focus:ring-2 focus:ring-green-500 focus:outline-none focus:bg-gray-700 sm:w-auto w-full text-center';
 
@@ -76,10 +51,6 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		}
 	}, []);
 
-	useEffect(() => {
-		scrollToHash(); // scroll to product if we follow from single product page
-	}, [currentCategory]);
-
 	const filteredProducts = useMemo(() => {
 		let result = products;
 		if (currentCategory !== 'all') {
@@ -93,6 +64,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 				p.art?.toLowerCase().includes(query)
 			);
 		}
+		debugger;
 		return result;
 	}, [products, currentCategory, searchQuery]);
 
@@ -112,7 +84,6 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
 		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
 		window.history.pushState({ path: newurl }, '', newurl);
-
 		setSearchParams(newParams);
 		setCurrentCategory(value);
 	}, [searchParams]);
@@ -167,7 +138,9 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					placeholder="Поиск по названию, описанию или артикулу..."
 					value={searchQuery}
 					onChange={handleSearchChange}
-					className="block w-full pl-12 pr-10 py-4 border border-gray-700 rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base shadow-xl"
+					className={`block w-full pl-12 pr-10 py-4 border rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base shadow-xl ${
+						searchQuery ? 'border-green-500 ring-2 ring-green-500/30' : 'border-gray-700'
+					}`}
 				/>
 				{searchQuery && (
 					<button
@@ -207,7 +180,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 			{FilterButtons}
 			<div className='grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-y-5 md:gap-x-5 place-items-center'>
 				{filteredProducts.map(p => {
-					const slug = getProductSlug(p);
+					const slug = p.slug;
 					const isInCart = cart.some(cp => p.id === cp.id);
 					return (
 						<div key={p.id} id={slug} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>

@@ -17,6 +17,7 @@ export function countProductTotal(product: Product) {
 	return product.quantity * product.price;
 }
 
+// depricated, product slug from cms
 export const getProductSlug = (product: Product): string => {
 	const transliterationMap: { [key: string]: string } = {
 		'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
