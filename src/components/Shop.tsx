@@ -148,7 +148,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					placeholder="Поиск по названию, описанию или артикулу..."
 					value={searchQuery}
 					onChange={handleSearchChange}
-					className="block w-full pl-12 pr-10 py-4 border border-gray-700 rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all sm:text-base text-sm shadow-xl"
+					className="block w-full pl-12 pr-10 py-4 border border-gray-700 rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base shadow-xl"
 				/>
 				{searchQuery && (
 					<button
