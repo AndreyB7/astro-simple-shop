@@ -1,77 +1,119 @@
 ---
 import Action from "@/components/Action.astro";
 import type { FooterData } from "@/config/landing.interface";
+import { productButton } from "@/styles/globalStyles";
 import { marked } from "marked";
 import Logo from "../components/Logo.astro";
 
 interface Props {
-  data: FooterData;
+	data: FooterData;
 }
 
 const { data } = Astro.props;
 ---
 
 <footer
-  id="contacts-section"
-  class="w-11/12 scroll-m-32 flex flex-col justify-center text-center gap-y-8 pt-8 mt-24 mx-auto bg-black"
+	id="contacts-section"
+	class="w-11/12 scroll-m-32 flex flex-col justify-center text-center gap-y-8 pt-8 mt-24 mx-auto bg-black"
 >
-  <div class="text-sm text-primary md:w-1/2 m-auto mt-2">
-    Доставка по России от одного рулона бесплатно!
-    <br />Доставка осуществляется транспортной компанией со склада в
-    Новосибирске.
-    <br />Мы рассчитаем финальную стоимость и сроки доставки при оформления
-    заказа.
-  </div>
-  <section class="flex justify-center">
-    <Action as="a" href="/" title={data.logo}>
-      <Logo />
-    </Action>
-  </section>
-  <section>
-    <p class="md:text-2xl md:w-1/2 m-auto mb-10">{data.description}</p>
-    <div
-      class="border border-gray-700 rounded-xl md:text-lg p-4 pt-8 mb-10 underline-links md:w-1/2 m-auto gray"
-      set:html={marked.parse(data.contacts)}
-    />
-    <p class="md:text-lg">{data.info}</p>
-    <img
-      src="/page-imgs/aliasev_pro_svvo.webp"
-      alt="aliasev brand"
-      class="w-64 h-96 relative rounded-md border-2 border-primary object-cover z-10 m-auto"
-    />
-  </section>
-  <section
-    class="flex flex-row flex-wrap justify-center gap-x-3 px-4 md:px-0 md:text-xl"
-  >
-    {
-      data.links.map((link) => (
-        <Action
-          as="a"
-          type="text"
-          href={link.href}
-          class="text-sm hover:opacity-70"
-        >
-          {link.label}
-        </Action>
-      ))
-    }
-  </section>
-  <!--<section class="mb-5 flex flex-row flex-wrap justify-center gap-x-3">-->
-  <!--  {-->
-  <!--    data.socials.map((social) => (-->
-  <!--            <Action as="a" type="icon" href={ social.href } title={ social.icon }>-->
-  <!--                <Icon icon={ social.icon as IconType }/>-->
-  <!--            </Action>-->
-  <!--    ))-->
-  <!--  }-->
-  <!--</section>-->
-  <section class="mb-24">
-    <div class="divider"></div>
-    <p class="md:text-lg">&copy; {data.companyName}</p>
-  </section>
+	<div class="text-sm text-primary md:w-1/2 m-auto mt-2">
+		Доставка по России от одного рулона бесплатно!
+		<br />Доставка осуществляется транспортной компанией со склада в
+		Новосибирске.
+		<br />Мы рассчитаем финальную стоимость и сроки доставки при оформления
+		заказа.
+	</div>
+	<section class="flex justify-center">
+		<Action as="a" href="/" title={data.logo}>
+			<Logo />
+		</Action>
+	</section>
+	<div>
+		<p class="md:text-2xl md:w-1/2 m-auto mb-10">{data.description}</p>
+		<div
+			class="border border-gray-700 rounded-xl md:text-lg p-4 pt-8 mb-10 underline-links md:w-1/2 m-auto gray"
+		>
+			<div set:html={marked.parse(data.contactText)} />
+			{
+				data.contacts.map((contact) => (
+					<p>
+						{contact.title}:
+						<Action
+							as="a"
+							href={contact.href}
+							title={contact.title}
+							class="underline-links"
+							target="_blank"
+						>
+							{contact.linkText}
+						</Action>
+					</p>
+				))
+			}
+		</div>
+		<p>
+			О пленках c примерами работ в нашей группе Телеграм<br />
+			<Action
+				as="a"
+				href="https://t.me/aliasevproppf"
+				title="@aliasevproppf"
+				class={productButton + " mt-2 mb-4"}
+				target="_blank"
+			>
+				@aliasevproppf
+			</Action>
+		</p>
+		<p>
+			и в нашей группе Мах<br />
+			<Action
+				as="a"
+				href="https://max.ru/join/vJ1KJFJhNLuw4qQBdodUb0KYxI1k1-kO880sVuMkKCc"
+				title="Автомобильные пленки"
+				class={productButton + " mt-2 mb-4"}
+				target="_blank"
+			>
+				Автомобильные пленки
+			</Action>
+		</p>
+		<p class="md:text-lg">{data.info}</p>
+		<img
+			src="/page-imgs/aliasev_pro_svvo.webp"
+			alt="aliasev brand"
+			class="w-64 h-96 relative rounded-md border-2 border-primary object-cover z-10 m-auto"
+		/>
+	</div>
+	<section
+		class="flex flex-row flex-wrap justify-center gap-x-3 px-4 md:px-0 md:text-xl"
+	>
+		{
+			data.links.map((link) => (
+				<Action
+					as="a"
+					type="text"
+					href={link.href}
+					class="text-sm hover:opacity-70"
+				>
+					{link.label}
+				</Action>
+			))
+		}
+	</section>
+	<!--<section class="mb-5 flex flex-row flex-wrap justify-center gap-x-3">-->
+	<!--  {-->
+	<!--    data.socials.map((social) => (-->
+	<!--            <Action as="a" type="icon" href={ social.href } title={ social.icon }>-->
+	<!--                <Icon icon={ social.icon as IconType }/>-->
+	<!--            </Action>-->
+	<!--    ))-->
+	<!--  }-->
+	<!--</section>-->
+	<section class="mb-24">
+		<div class="divider"></div>
+		<p class="md:text-lg">&copy; {data.companyName}</p>
+	</section>
 </footer>
 <style is:inline>
-  .gray p {
-    opacity: 0.7;
-  }
+	.gray p {
+		opacity: 0.7;
+	}
 </style>

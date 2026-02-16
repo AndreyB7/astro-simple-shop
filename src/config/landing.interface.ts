@@ -54,9 +54,16 @@ export interface FooterData {
 	description: string;
 	info: string;
 	companyName: string;
-	contacts: string;
+	contactText: string;
+	contacts: Contact[];
 	links: Link[];
 	socials: Social[];
+}
+
+export interface Contact {
+	title: string;
+	linkText: string;
+	href: string;
 }
 
 export interface Link {

@@ -168,11 +168,11 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		<>
 			<div className="flex justify-center flex-col items-center">
 				<div className={'w-full max-w-xl p-2 px-4 rounded-2xl bg-gray-700 text-center'}>
-					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате Телеграм
-					{/* Оформление заказа с сайта находится в разработке, для оформления свяжитесь по телефону или напишите сообщение в Телеграм */}
+					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате
 					<div className={'grid justify-center p-2 m-1'}>
 						<a className={'m-1 ' + productButton} href={'tel:+79931909116'} target='_blank' rel="noopener noreferrer">+7 (993) 190-91-16</a>
-						<a className={'m-1 ' + productButton} href={'https://telegram.me/aliasevproppf'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
+						<a className={'m-1 ' + productButton} href={'https://t.me/AliasevPro_1'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
+						<a className={'m-1 ' + productButton} href={'https://max.ru/u/f9LHodD0cOLU1Qp6EhCpn65GBGAUvIXhDqDqa9Z0PhXK1aV3uCoizdAvEDo'} target='_blank' rel="noopener noreferrer">Сообщение Мах</a>
 					</div>
 				</div>
 			</div>
@@ -200,9 +200,9 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 								</div>
 								<div className='mt-2 flex flex-col h-full justify-end'>
 									<div className='mb-2'>
-										{p.priceroll && (<div>
+										{p.priceRoll && (<div>
 											<div>Цена за ролик {p.roll + 'мп'}:</div>
-											<div className='text-xl font-bold'>{currencyFormat(p.priceroll)}</div>
+											<div className='text-xl font-bold'>{currencyFormat(p.priceRoll)}</div>
 										</div>)}
 										{p.price && (<div>
 											<div>Цена {p.roll && 'за мп'}</div>

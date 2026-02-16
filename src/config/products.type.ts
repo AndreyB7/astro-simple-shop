@@ -10,6 +10,6 @@ export type Product = {
 	price: number,
 	roll?: number,
 	storage: number,
-	priceroll?: number,
+	priceRoll?: number,
 	quantity?: number,
 }

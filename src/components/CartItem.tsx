@@ -16,7 +16,7 @@ const CartItem = ({ cartItem, handleUpdateQuantity, removeFromCart }: Props) => 
 			{cartItem.roll &&
 				<div className='flex'>
 					<div>{cartItem.roll ? `Ролик: ${cartItem.roll}мп` : ''}</div>
-					<div className='ml-1'>{`${currencyFormat(cartItem.priceroll)}`}</div>
+					<div className='ml-1'>{`${currencyFormat(cartItem.priceRoll)}`}</div>
 				</div>
 			}
 		</div>

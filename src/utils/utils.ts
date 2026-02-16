@@ -9,10 +9,10 @@ export function countProductTotal(product: Product) {
 	if (!product.quantity) {
 		return 0
 	}
-	if (product.roll && product.priceroll) {
+	if (product.roll && product.priceRoll) {
 		const packsCount = Math.floor(product.quantity / product.roll);
 		const metersCount = product.quantity % product.roll;
-		return packsCount * product.priceroll + metersCount * product.price;
+		return packsCount * product.priceRoll + metersCount * product.price;
 	}
 	return product.quantity * product.price;
 }
