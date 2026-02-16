@@ -64,7 +64,6 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 				p.art?.toLowerCase().includes(query)
 			);
 		}
-		debugger;
 		return result;
 	}, [products, currentCategory, searchQuery]);
 
