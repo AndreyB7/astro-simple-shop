@@ -132,7 +132,7 @@ const Cart = () => {
 					)}
 				</div>
 				<div className='text-center pt-2 w-11/12 md:w-3/4 m-auto'>
-					Просим прнимать во внимание что оставляя заявку Вы подтвержадаете что согласны с
+					Просим принимать во внимание что оставляя заявку Вы подтверждаете что согласны с
 					<a href="/public-offer/" className='text-blue-500 inline px-1' target='_blank' rel='noopener noreferrer'>
 						публичной офертой
 					</a> нашего интернет магазина.
