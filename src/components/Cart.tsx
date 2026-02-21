@@ -36,6 +36,7 @@ const Cart = () => {
 
 	const cartItems = useMemo(() => cart.map(cartItem => ({
 		name: cartItem.name,
+		runame: cartItem.runame,
 		art: cartItem.art,
 		quantity: cartItem.quantity,
 		productTotal: countProductTotal(cartItem)

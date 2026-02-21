@@ -12,7 +12,7 @@ type Props = {
 const CartItem = ({ cartItem, handleUpdateQuantity, removeFromCart }: Props) => (
 	<div className='flex flex-wrap text-center gap-2 border-b text-sm'>
 		<div className='flex-1 text-left'>
-			{cartItem.name}
+			{cartItem.runame || cartItem.name}
 			{cartItem.roll &&
 				<div className='flex'>
 					<div>{cartItem.roll ? `Ролик: ${cartItem.roll}мп` : ''}</div>

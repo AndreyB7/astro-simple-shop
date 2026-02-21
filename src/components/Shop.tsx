@@ -59,7 +59,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		if (searchQuery) {
 			const query = searchQuery.toLowerCase();
 			result = result.filter((p) =>
-				p.name.toLowerCase().includes(query) ||
+				p.runame.toLowerCase().includes(query) ||
 				p.desc?.toLowerCase().includes(query) ||
 				p.art?.toLowerCase().includes(query)
 			);
@@ -90,7 +90,7 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setSearchQuery(value);
-		
+
 		const newParams = new URLSearchParams(window.location.search);
 		if (value) {
 			newParams.set('search', value);
@@ -101,12 +101,22 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 		} else {
 			newParams.delete('search');
 		}
-		
+
 		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
 		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
 		window.history.replaceState({ path: newurl }, '', newurl);
 		setSearchParams(newParams);
 	};
+
+	const handleResetSearch = () => {
+		setSearchQuery('');
+		const newParams = new URLSearchParams(window.location.search);
+		newParams.delete('search');
+		const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
+		const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
+		window.history.replaceState({ path: newurl }, '', newurl);
+		setSearchParams(newParams);
+	}
 
 	const FilterButtons = useMemo(() => (
 		<div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1 justify-center items-center my-4">
@@ -137,21 +147,12 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					placeholder="Поиск по названию, описанию или артикулу..."
 					value={searchQuery}
 					onChange={handleSearchChange}
-					className={`block w-full pl-12 pr-10 py-4 border rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base shadow-xl ${
-						searchQuery ? 'border-green-500 ring-2 ring-green-500/30' : 'border-gray-700'
-					}`}
+					className={`block w-full pl-12 pr-10 py-4 border rounded-2xl bg-gray-800/50 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all text-base shadow-xl ${searchQuery ? 'border-green-500 ring-2 ring-green-500/30' : 'border-gray-700'
+						}`}
 				/>
 				{searchQuery && (
 					<button
-						onClick={() => {
-							setSearchQuery('');
-							const newParams = new URLSearchParams(window.location.search);
-							newParams.delete('search');
-							const paramsString = newParams.toString() ? '?' + newParams.toString() : '';
-							const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${paramsString}`;
-							window.history.replaceState({ path: newurl }, '', newurl);
-							setSearchParams(newParams);
-						}}
+						onClick={handleResetSearch}
 						className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors"
 					>
 						<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -160,6 +161,18 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					</button>
 				)}
 			</div>
+			{searchQuery && (
+				<div className="flex justify-center mt-2">
+				<button
+					key={'resetSearch'}
+					type="button"
+					onClick={handleResetSearch}
+					className={filterButtonCss + ' bg-gray-800 ring-2 ring-green-500'}
+				>
+					{'Очистить поиск'}
+				</button>
+				</div>
+			)}
 		</div>
 	);
 
@@ -182,15 +195,15 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 					const slug = p.slug;
 					const isInCart = cart.some(cp => p.id === cp.id);
 					return (
-						<div key={p.id} id={slug} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
+						<div key={p.slug} id={slug} className='flex flex-col border border-gray-700 rounded-2xl w-full h-full text-center'>
 							<div className='w-full relative flex pb-[61%] h-0'>
 								<img src={`/products/${p.img}`} alt={p.name}
 									className="rounded-t-2xl object-cover w-full h-full absolute" />
 							</div>
 							<div className='p-2 md:p-4 flex flex-col flex-grow justify-self-stretch w-full'>
 								<a href={`/products/${slug}/`}
-									title={p.name}>
-									<div className='text-lg font-semibold'>{p.name}</div>
+									title={p.runame}>
+									<div className='text-lg font-semibold'>{p.runame}</div>
 								</a>
 								{p.desc && <div className='opacity-50 text-sm'>{p.desc}</div>}
 								{p.art && <div className='opacity-50 text-sm'>Арт. {p.art}</div>}

@@ -4,6 +4,7 @@ export type Product = {
 	art: string,
 	cat: string,
 	name: string,
+	runame: string,
 	slug: string,
 	desc: string,
 	img: string,

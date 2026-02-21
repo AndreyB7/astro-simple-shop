@@ -111,7 +111,7 @@ try {
             "Taxation" => "usn_income",
             "Items" => array_map(function ($item) {
                 return [
-                    "Name" => $item['name'],
+                    "Name" => isset($item['runame']) ? $item['runame'] : $item['name'],
                     "Price" => ($item['productTotal'] / $item['quantity']) * 100,
                     "Quantity" => $item['quantity'],
                     "Amount" => $item['productTotal'] * 100,
@@ -160,7 +160,7 @@ try {
     </tr>";
     foreach ($cart as $item) {
         $adminEmailBody .= "<tr>";
-        $adminEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
+        $adminEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars(isset($item['runame']) ? $item['runame'] : $item['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
         $adminEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['art'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
         $adminEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['quantity'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
         $adminEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['productTotal'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . " руб</td>";
@@ -203,7 +203,7 @@ try {
     </tr>";
     foreach ($cart as $item) {
         $customerEmailBody .= "<tr>";
-        $customerEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
+        $customerEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars(isset($item['runame']) ? $item['runame'] : $item['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
         $customerEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['quantity'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . "</td>";
         $customerEmailBody .= "<td style='border: 1px solid #000; padding: 8px;'>" . htmlspecialchars($item['productTotal'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . " руб</td>";
         $customerEmailBody .= "</tr>";
