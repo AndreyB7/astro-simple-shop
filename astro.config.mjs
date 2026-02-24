@@ -52,5 +52,11 @@ export default defineConfig({
 				protocol: 'ws'
 			}
 		}
-	}
+	},
+	redirects: {
+			"/products/cristal-moss-green": "/products/color-pet-cristal-moss-green",
+			"/products/dimond-black-fantasy": "/products/color-pet-dimond-black-fantasy",
+			"/products/praymer-pro-bond": "/products/primer-pro-bond",
+			"/products/metal-champagne-gold-deep": "/products/color-pet-metal-champagne-gold-deep",
+		}
 });
