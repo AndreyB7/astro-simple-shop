@@ -14,7 +14,7 @@ export const getProductsData = async (): Promise<Product[]> => {
 
 	productsPromise = (async () => {
 		const url =
-			"https://script.google.com/macros/s/AKfycbwwCPZx_NDHDlnREuZI-k5OIQJh1YPZOzFML6TehjWIn-ZMfzYoAWdoFmA1vcPFdMd0mA/exec";
+			"https://script.google.com/macros/s/AKfycbyXtaWjw_OOZGiyPgNz15yqupk-F7SJT9C7dtBhRvvXkjWs8kNoEz_4LRiCSQX3YhPGLw/exec";
 		const response = await fetch(url);
 		return convertTabularData(await response.json());
 	})();
