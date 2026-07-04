@@ -186,6 +186,8 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 						<a className={'m-1 ' + productButton} href={'https://t.me/AliasevPro_1'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
 						<a className={'m-1 ' + productButton} href={'https://max.ru/u/f9LHodD0cOLU1Qp6EhCpn65GBGAUvIXhDqDqa9Z0PhXK1aV3uCoizdAvEDo'} target='_blank' rel="noopener noreferrer">Сообщение Мах</a>
 					</div>
+
+					<div className="text-red-500 max-w-[400px] m-auto">ВАЖНО: СТОИМОСТЬ ТОВАРА МОЖЕТ МЕНЯТЬСЯ, УТОЧНИТЕ У МЕНЕДЖЕРА</div>
 				</div>
 			</div>
 			{SearchBar}
