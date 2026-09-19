@@ -182,9 +182,9 @@ const Shop: React.FC<Props> = ({ products, productCategories }: Props) => {
 				<div className={'w-full max-w-xl p-2 px-4 rounded-2xl bg-gray-700 text-center'}>
 					Для уточнения подробностей мы всегда рады ответить на любые вопросы по телефону или в чате
 					<div className={'grid justify-center p-2 m-1'}>
-						<a className={'m-1 ' + productButton} href={'tel:+79931909116'} target='_blank' rel="noopener noreferrer">+7 (993) 190-91-16</a>
+						<a className={'m-1 ' + productButton} href={'tel:+79955702014'} target='_blank' rel="noopener noreferrer">+7 (995) 570-20-14</a>
 						<a className={'m-1 ' + productButton} href={'https://t.me/AliasevPro_1'} target='_blank' rel="noopener noreferrer">Сообщение Телеграм</a>
-						<a className={'m-1 ' + productButton} href={'https://max.ru/u/f9LHodD0cOLU1Qp6EhCpn65GBGAUvIXhDqDqa9Z0PhXK1aV3uCoizdAvEDo'} target='_blank' rel="noopener noreferrer">Сообщение Мах</a>
+						<a className={'m-1 ' + productButton} href={'https://max.ru/u/f9LHodD0cOK0W0FTY0AFozOfWAoEOqdbuxgMprTCRoQ-yUES_PDpsAbEXsE'} target='_blank' rel="noopener noreferrer">Сообщение Мах</a>
 					</div>
 
 					<div className="text-red-500 max-w-[400px] m-auto">ВАЖНО: СТОИМОСТЬ ТОВАРА МОЖЕТ МЕНЯТЬСЯ, УТОЧНИТЕ У МЕНЕДЖЕРА</div>
