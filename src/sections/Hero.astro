@@ -34,7 +34,11 @@ const { data } = Astro.props;
 			{data.subTitle}
 		</h2>
 		<div class="flex justify-evenly mt-10" data-aos="fade-up">
-			<Action as="a" type="button" href={urls.catalog}>
+			<Action
+				as="a"
+				class="uppercase px-6 py-2.5 text-base md:text-lg md:px-10 md:py-3.5 bg-gradient-to-b from-primary to-secondary rounded-xl text-center font-semibold inline-block transition shadow-[0_0_20px_rgba(0,136,230,0.55)] hover:shadow-[0_0_35px_rgba(0,136,230,0.85)] hover:scale-105"
+				href={urls.catalog}
+			>
 				{data.primaryCta}
 			</Action>
 		</div>
